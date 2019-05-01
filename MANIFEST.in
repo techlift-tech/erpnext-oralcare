@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include erpnext_oralcare *.css
+recursive-include erpnext_oralcare *.csv
+recursive-include erpnext_oralcare *.html
+recursive-include erpnext_oralcare *.ico
+recursive-include erpnext_oralcare *.js
+recursive-include erpnext_oralcare *.json
+recursive-include erpnext_oralcare *.md
+recursive-include erpnext_oralcare *.png
+recursive-include erpnext_oralcare *.py
+recursive-include erpnext_oralcare *.svg
+recursive-include erpnext_oralcare *.txt
+recursive-exclude erpnext_oralcare *.pyc
