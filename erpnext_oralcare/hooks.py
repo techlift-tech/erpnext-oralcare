@@ -125,3 +125,4 @@ doctype_js = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
 
+fixtures = ["Custom Fields"]
