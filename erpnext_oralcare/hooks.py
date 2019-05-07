@@ -91,6 +91,11 @@ doctype_js = {
 # 		"on_trash": "method"
 #	}
 # }
+doc_events = {
+	"Sales Invoice": {
+		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -124,4 +129,4 @@ doctype_js = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item")]]}]
