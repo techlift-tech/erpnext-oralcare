@@ -7,7 +7,7 @@ frappe.ui.form.on("Patient Encounter", "patient", function(frm){
 				patient: frm.doc.patient
 			},
 			callback: function (data) {
-				frm.fields_dict.important_points.html(form_patient_info_html(data))
+				//frm.fields_dict.important_points.html(form_patient_info_html(data))
 				sidebar_data(data, frm)
 			}
 		});
@@ -55,7 +55,7 @@ function form_patient_info_html(data){
 }
 
 function sidebar_data(data, frm){
-	var data = r.message;
+	var data = data.message;
 	var details = "";
 	if(data.email) details += "<br><b>Email :</b> " + data.email;
 	if(data.mobile) details += "<br><b>Mobile :</b> " + data.mobile;
