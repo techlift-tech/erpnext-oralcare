@@ -44,52 +44,53 @@ def execute(filters=None):
 		for item in si_items:
 			items_list.append(frappe._dict(vars(item)))
 
-	items_tax_list, tax_columns = get_tax_accounts(items_list, columns, 'INR')
+	if  items_list:
+		items_tax_list, tax_columns = get_tax_accounts(items_list, columns, 'INR')
 
-	for si_name in sales_invoices:
-		si = frappe.get_doc('Sales Invoice', si_name)
+		for si_name in sales_invoices:
+			si = frappe.get_doc('Sales Invoice', si_name)
 
-		if (not si) or (si.docstatus != 1):
-			continue
-
-		posting_date = si.posting_date
-
-		si_items = si.items
-
-		for item in si_items:
-			reference_dt = item.reference_dt
-
-			if not reference_dt == 'Clinical Procedure':
+			if (not si) or (si.docstatus != 1):
 				continue
 
-			amount = item.amount
-			reference_dn = item.reference_dn
-			rate = item.rate
-			qty = item.qty
+			posting_date = si.posting_date
 
-			clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
-			template = clinical_procedure.procedure_template
-			practitioner = clinical_procedure.practitioner
+			si_items = si.items
 
-			doctor_name = ''
-			doctor_first_name = ''
-			if practitioner:
-				doctor_name = practitioner
-				doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
-				if doctor.first_name:
-					doctor_first_name = doctor.first_name
+			for item in si_items:
+				reference_dt = item.reference_dt
 
-			array_to_append = [si_name.name, posting_date, clinical_procedure.name, template, doctor_name, doctor_first_name, qty, rate, amount]
+				if not reference_dt == 'Clinical Procedure':
+					continue
 
-			total_tax = 0
-			for tax in tax_columns:
-				item_tax = items_tax_list.get(item.name, {}).get(tax, {})
-				array_to_append += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
-				total_tax += flt(item_tax.get("tax_amount"))
+				amount = item.amount
+				reference_dn = item.reference_dn
+				rate = item.rate
+				qty = item.qty
 
-			array_to_append += [total_tax, item.base_net_amount + total_tax, "INR"]
+				clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
+				template = clinical_procedure.procedure_template
+				practitioner = clinical_procedure.practitioner
 
-			data.append(array_to_append)
+				doctor_name = ''
+				doctor_first_name = ''
+				if practitioner:
+					doctor_name = practitioner
+					doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
+					if doctor.first_name:
+						doctor_first_name = doctor.first_name
+
+				array_to_append = [si_name.name, posting_date, clinical_procedure.name, template, doctor_name, doctor_first_name, qty, rate, amount]
+
+				total_tax = 0
+				for tax in tax_columns:
+					item_tax = items_tax_list.get(item.name, {}).get(tax, {})
+					array_to_append += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
+					total_tax += flt(item_tax.get("tax_amount"))
+
+				array_to_append += [total_tax, item.base_net_amount + total_tax, "INR"]
+
+				data.append(array_to_append)
 
 	return columns, data
 
