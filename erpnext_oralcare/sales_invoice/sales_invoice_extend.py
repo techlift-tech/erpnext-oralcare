@@ -7,11 +7,9 @@ def sales_invoice_doctors_share_calculate(doc, method):
 		reference_dt = sales_item.reference_dt
 		reference_dn = sales_item.reference_dn
 
-		print reference_dt
-		print reference_dn
-		clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
 		if(reference_dt == 'Clinical Procedure' and reference_dn):
 
+			clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
 			if(clinical_procedure):
 				doctor = clinical_procedure.practitioner
 				print(doctor)
