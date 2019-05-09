@@ -4,7 +4,6 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.utils import flt
-import pdb
 
 def execute(filters=None):
 	columns, data = [], []
@@ -15,8 +14,6 @@ def execute(filters=None):
 	from_date = filters.get("date_range")[0]
 	to_date = filters.get("date_range")[1]
 	doctor_filter = filters.get("doctor")
-
-	pdb.set_trace()
 
 	columns, data = [], []
 

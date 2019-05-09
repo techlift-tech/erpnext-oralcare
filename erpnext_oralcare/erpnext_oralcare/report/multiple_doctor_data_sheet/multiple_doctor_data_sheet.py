@@ -116,8 +116,6 @@ def execute(filters=None):
 		for column_json in columns:
 			temp_rate[column_json['title']] = 0.0
 
-		frappe.msgprint(json.dumps(temp_rate))
-
 		for month in doctors_month_wise_share[doctor_id]:
 			self_amount = doctors_month_wise_share[doctor_id][month]['self']
 			co_amount = doctors_month_wise_share[doctor_id][month]['co']

@@ -3,7 +3,6 @@
 
 from __future__ import unicode_literals
 import frappe
-import pdb
 
 def execute(filters=None):
 	if not filters:
