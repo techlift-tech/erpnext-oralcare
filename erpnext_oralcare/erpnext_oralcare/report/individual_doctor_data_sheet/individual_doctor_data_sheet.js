@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Patient Treatment Sheet"] = {
+frappe.query_reports["Individual Doctor Data Sheet"] = {
 	"filters": [
 		{
 			"fieldname":"date_range",
@@ -11,10 +11,10 @@ frappe.query_reports["Patient Treatment Sheet"] = {
 			"default": [frappe.datetime.add_months(frappe.datetime.get_today(),-1), frappe.datetime.get_today()],
 			"reqd": 1
 		},{
-			"fieldname":"patient",
-			"label": __("Patient"),
+			"fieldname":"doctor",
+			"label": __("Doctor"),
 			"fieldtype":"Link",
-			"options":"Patient"
+			"options":"Healthcare Practitioner"
 		}
 	]
 }

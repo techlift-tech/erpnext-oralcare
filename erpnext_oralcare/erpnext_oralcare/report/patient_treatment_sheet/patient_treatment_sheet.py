@@ -14,10 +14,14 @@ def execute(filters=None):
 
 	from_date = filters.get("date_range")[0]
 	to_date = filters.get("date_range")[1]
+	patient = filters.get("patient")
 
 	columns, data = [], []
 
-	sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
+	if patient:
+		sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date], {'patient': patient}])
+	else:
+		sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
 
 	columns = [
 		'Sales Invoice:Link/Sales Invoice',
@@ -26,6 +30,8 @@ def execute(filters=None):
 		'Proceure Name',
 		'Doctor:Link/Healthcare Practitioner',
 		'Doctor Name',
+		'Patient:Link/Patient',
+		'Patient Name',
 		'Quantity',
 		'Rate:Currency',
 		'Amount:Currency',
@@ -71,6 +77,7 @@ def execute(filters=None):
 				clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
 				template = clinical_procedure.procedure_template
 				practitioner = clinical_procedure.practitioner
+				patient_id = clinical_procedure.patient
 
 				doctor_name = ''
 				doctor_first_name = ''
@@ -80,7 +87,10 @@ def execute(filters=None):
 					if doctor.first_name:
 						doctor_first_name = doctor.first_name
 
-				array_to_append = [si_name.name, posting_date, clinical_procedure.name, template, doctor_name, doctor_first_name, qty, rate, amount]
+				patient = frappe.get_doc('Patient', patient_id) 
+				patient_name = patient.patient_name
+
+				array_to_append = [si_name.name, posting_date, clinical_procedure.name, template, doctor_name, doctor_first_name, patient_id, patient_name, qty, rate, amount]
 
 				total_tax = 0
 				for tax in tax_columns:

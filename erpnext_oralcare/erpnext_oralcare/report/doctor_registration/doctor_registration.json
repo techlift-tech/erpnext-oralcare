@@ -1,0 +1,30 @@
+{
+ "add_total_row": 0, 
+ "creation": "2019-05-08 14:37:25.052423", 
+ "disable_prepared_report": 0, 
+ "disabled": 0, 
+ "docstatus": 0, 
+ "doctype": "Report", 
+ "idx": 0, 
+ "is_standard": "Yes", 
+ "modified": "2019-05-08 14:37:28.588792", 
+ "modified_by": "Administrator", 
+ "module": "Erpnext Oralcare", 
+ "name": "Doctor Registration", 
+ "owner": "Administrator", 
+ "prepared_report": 0, 
+ "ref_doctype": "Healthcare Practitioner", 
+ "report_name": "Doctor Registration", 
+ "report_type": "Script Report", 
+ "roles": [
+  {
+   "role": "Laboratory User"
+  }, 
+  {
+   "role": "Physician"
+  }, 
+  {
+   "role": "Nursing User"
+  }
+ ]
+}
