@@ -137,6 +137,8 @@ def execute(filters=None):
 			title += ":Currency"
 		columns_new.append(title)
 
+	datasets = []
+
 	for data_per_doc in data:
 		temp_dataset = {
 			'name': data_per_doc[0],
