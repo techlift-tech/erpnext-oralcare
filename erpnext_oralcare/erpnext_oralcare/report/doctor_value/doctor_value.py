@@ -118,7 +118,7 @@ def execute(filters=None):
 			co_amount = doctors_month_wise_share[doctor_id][month]['co']
 			co_percent = (co_amount*100)/(co_amount + self_amount)
 
-			temp_rate[month] = self_amount
+			temp_rate[month] = co_amount
 
 		for column_json in columns:
 			column_title = column_json['title']
