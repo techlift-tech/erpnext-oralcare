@@ -1,0 +1,43 @@
+{
+ "creation": "2019-05-12 15:26:33.436254",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tooth_number",
+  "severity",
+  "characteristics"
+ ],
+ "fields": [
+  {
+   "fieldname": "tooth_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tooth Number"
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Severity",
+   "options": "\n0-3 mm\n4-5 mm\n6-8 mm\n9-11 mm\n12 mm or n"
+  },
+  {
+   "fieldname": "characteristics",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Characteristics"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-12 15:26:49.118918",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Loss of Attachment",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}
