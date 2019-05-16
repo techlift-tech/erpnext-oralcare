@@ -50,14 +50,29 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 			if len(commission_price) != 1:
 				return 0
 
-			commission_type = commission_price.commission_type
-			commission_value = commission_price.commission_value
+			total_deduction = 0
+			deductions = frappe.get_list('Deduction Before Commission')
+			for deduction in deductions:
+				deduction_type = deduction.deduction_type
+				deduction_value = deduction.deduction_value
 
-			if (commission_type and commission_value):
-				if commission_type == 'percent':
-					share_value = (amount * commission_value)/100
-				elif commission_type == 'fix':
-					share_value = qty*commission_value
+				if deduction_type == 'percent':
+					deduction_to_add = (amount * deduction_value) / 100
+					total_deduction += deduction_to_add
+				elif deduction_type == 'fix':
+					total_deduction += deduction_valued
+
+			amount = amount - total_deduction
+
+			if amoujnt > 0:
+				commission_type = commission_price.commission_type
+				commission_value = commission_price.commission_value
+
+				if (commission_type and commission_value):
+					if commission_type == 'percent':
+						share_value = (amount * commission_value)/100
+					elif commission_type == 'fix':
+						share_value = qty*commission_value
 
 		return share_value
 
