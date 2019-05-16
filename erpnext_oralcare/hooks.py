@@ -29,7 +29,8 @@ page_js = {
 }
 # include js in doctype views
 doctype_js = {
-	"Patient Encounter": "public/js/patient_encounter.js"
+	"Patient Encounter": "public/js/patient_encounter.js",
+	"Lead": "public/js/lead.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -129,4 +130,4 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item")]]}]
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item, Lead, Patient")]]}]
