@@ -1,10 +1,8 @@
 import frappe
-import pdb
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
 def sales_invoice_doctors_share_calculate(doc, method):
-	pdb.set_trace()
 	sales_items = doc.items
 
 	for sales_item in sales_items:

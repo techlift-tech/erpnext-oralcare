@@ -94,7 +94,8 @@ doctype_js = {
 # }
 doc_events = {
 	"Sales Invoice": {
-		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate"
+		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate",
+		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_acocunting_entries"
 	}
 }
 
@@ -130,4 +131,4 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item, Lead, Patient")]]}]
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item, Lead, Patient, Account")]]}]
