@@ -1,8 +1,10 @@
 import frappe
+import pdb
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
 def sales_invoice_doctors_share_calculate(doc, method):
+	pdb.set_trace()
 	sales_items = doc.items
 
 	for sales_item in sales_items:
@@ -44,34 +46,37 @@ def sales_invoice_doctors_share_calculate(doc, method):
 
 def get_doctor_commission(item_code, doctor, qty, amount):
 		if doctor:
-			commission_price = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code})
+			commission_price_list = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code})
 			share_value = 0
 
-			if len(commission_price) != 1:
+			if len(commission_price_list) != 1:
 				return 0
+
+			commission_price = frappe.get_doc('Item Commission List', commission_price_list[0])
 
 			total_deduction = 0
 			deductions = frappe.get_list('Deduction Before Commission')
-			for deduction in deductions:
+			for deduction_name in deductions:
+				deduction = frappe.get_doc('Deduction Before Commission', deduction_name.name)
 				deduction_type = deduction.deduction_type
 				deduction_value = deduction.deduction_value
 
-				if deduction_type == 'percent':
+				if deduction_type == 'Percent':
 					deduction_to_add = (amount * deduction_value) / 100
 					total_deduction += deduction_to_add
-				elif deduction_type == 'fix':
+				elif deduction_type == 'Fix':
 					total_deduction += deduction_valued
 
 			amount = amount - total_deduction
 
 			if amount > 0:
-				commission_type = commission_price[0].commission_type
-				commission_value = commission_price[0].commission_value
+				commission_type = commission_price.commission_type
+				commission_value = commission_price.commission_value
 
 				if (commission_type and commission_value):
-					if commission_type == 'percent':
+					if commission_type == 'Percent':
 						share_value = (amount * commission_value)/100
-					elif commission_type == 'fix':
+					elif commission_type == 'Fix':
 						share_value = qty*commission_value
 
 		return share_value
