@@ -65,8 +65,8 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 			amount = amount - total_deduction
 
 			if amoujnt > 0:
-				commission_type = commission_price.commission_type
-				commission_value = commission_price.commission_value
+				commission_type = commission_price[0].commission_type
+				commission_value = commission_price[0].commission_value
 
 				if (commission_type and commission_value):
 					if commission_type == 'percent':
