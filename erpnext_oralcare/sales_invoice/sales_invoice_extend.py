@@ -2,6 +2,9 @@ import frappe
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
+def add_acocunting_entries(doc, method):
+	return
+
 def sales_invoice_doctors_share_calculate(doc, method):
 	sales_items = doc.items
 
