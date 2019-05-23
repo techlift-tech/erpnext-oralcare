@@ -1,0 +1,146 @@
+{
+ "creation": "2019-05-23 23:35:04.714437",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "family_history_of_tooth_loss",
+  "lip_seal",
+  "halitosis",
+  "frenal_attachment",
+  "column_break_5",
+  "contact_relation",
+  "tenderness",
+  "pathological_migration",
+  "fremitus_test",
+  "tension_test",
+  "section_break_11",
+  "gingival_and_periodontal_status",
+  "recession",
+  "pockets",
+  "attachment_loss",
+  "furcation_involvement",
+  "perio_endo_environment",
+  "section_break_18",
+  "loss_of_attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "family_history_of_tooth_loss",
+   "fieldtype": "Data",
+   "label": "Family History of tooth loss"
+  },
+  {
+   "fieldname": "lip_seal",
+   "fieldtype": "Data",
+   "label": "Lip seal"
+  },
+  {
+   "fieldname": "halitosis",
+   "fieldtype": "Data",
+   "label": "Halitosis"
+  },
+  {
+   "fieldname": "frenal_attachment",
+   "fieldtype": "Data",
+   "label": "Frenal Attachment"
+  },
+  {
+   "fieldname": "contact_relation",
+   "fieldtype": "Data",
+   "label": "Contact relation"
+  },
+  {
+   "fieldname": "tenderness",
+   "fieldtype": "Data",
+   "label": "Tenderness on (horizontal)"
+  },
+  {
+   "fieldname": "pathological_migration",
+   "fieldtype": "Data",
+   "label": "percussion"
+  },
+  {
+   "fieldname": "fremitus_test",
+   "fieldtype": "Data",
+   "label": "Fremitus test"
+  },
+  {
+   "fieldname": "tension_test",
+   "fieldtype": "Data",
+   "label": "Tension test"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "gingival_and_periodontal_status",
+   "fieldtype": "HTML",
+   "label": "Gingival and Periodontal Status",
+   "options": "<p>Gingival and Periodontal Status</p>"
+  },
+  {
+   "fieldname": "recession",
+   "fieldtype": "Data",
+   "label": "Recession"
+  },
+  {
+   "fieldname": "pockets",
+   "fieldtype": "Data",
+   "label": "Pockets"
+  },
+  {
+   "fieldname": "attachment_loss",
+   "fieldtype": "Data",
+   "label": "Attachment Loss"
+  },
+  {
+   "fieldname": "furcation_involvement",
+   "fieldtype": "Data",
+   "label": "Furcation Involvement"
+  },
+  {
+   "fieldname": "perio_endo_environment",
+   "fieldtype": "Data",
+   "label": "Perio endo environment"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "loss_of_attachment",
+   "fieldtype": "Table",
+   "label": "Loss of Attachment",
+   "options": "Loss of Attachment"
+  }
+ ],
+ "modified": "2019-05-23 23:39:12.957596",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Periodontology",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "track_seen": 1
+}
