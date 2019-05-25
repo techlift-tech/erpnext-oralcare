@@ -131,20 +131,28 @@ def sales_invoice_doctors_share_calculate(doc, method):
 
 def get_doctor_commission(item_code, doctor, qty, amount):
 		if doctor:
-			commission_price_list = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code})
+			commission_price = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code}, fields = ['commission_type', 'commission_valie'])
 			share_value = 0
 
-			if len(commission_price_list) != 1:
+			if len(commission_price) != 1:
 				return 0
 
-			commission_price = frappe.get_doc('Item Commission List', commission_price_list[0])
-
 			total_deduction = 0
-			deductions = frappe.get_list('Deduction Before Commission')
-			for deduction_name in deductions:
-				deduction = frappe.get_doc('Deduction Before Commission', deduction_name.name)
+			deductions = frappe.get_list('Deduction Before Commission', fields = ['type', 'value'])
+			for deduction in deductions:
 				deduction_type = deduction.deduction_type
 				deduction_value = deduction.deduction_value
+
+				if deduction_type == 'Percent':
+					deduction_to_add = (amount * deduction_value) / 100
+					total_deduction += deduction_to_add
+				elif deduction_type == 'Fix':
+					total_deduction += deduction_value
+
+			item_deductions = frappe.get_list('Item Deduction Before Commission', filters = {'item': item_code}, fields = ['type', 'value'])
+			for item_decuction in item_deductions:
+				deduction_type = item_decuction.type
+				deduction_value = item_decuction.value
 
 				if deduction_type == 'Percent':
 					deduction_to_add = (amount * deduction_value) / 100
@@ -163,6 +171,8 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 						share_value = (amount * commission_value)/100
 					elif commission_type == 'Fix':
 						share_value = qty*commission_value
+			else:
+				frappe.throw(_("Final amount after deductions and commission is negative"))
 
 		return share_value
 
