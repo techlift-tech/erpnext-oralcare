@@ -1,4 +1,6 @@
 import frappe
+from frappe import _
+from frappe import _
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
@@ -79,6 +81,8 @@ def add_accounting_entries(doc, method):
 
 				gl_entries.append(gl_entry_debit)
 				gl_entries.append(gl_entry_credit)
+			else:
+				frappe.throw(_("Please configure Oralcare Settings"))
 
 	if gl_entries:
 		from erpnext.accounts.general_ledger import merge_similar_entries
