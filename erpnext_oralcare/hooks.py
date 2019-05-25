@@ -30,7 +30,8 @@ page_js = {
 # include js in doctype views
 doctype_js = {
 	"Patient Encounter": "public/js/patient_encounter.js",
-	"Lead": "public/js/lead.js"
+	"Lead": "public/js/lead.js",
+	"Kanban Board": "public/js/kanban_board.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -95,7 +96,10 @@ doctype_js = {
 doc_events = {
 	"Sales Invoice": {
 		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate",
-		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_acocunting_entries"
+		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_accounting_entries"
+	}, 
+	"Patient Appointment": {
+		"validate": "erpnext_oralcare.patient_appointment.patient_appointment_extend.set_custom_title"
 	}
 }
 
