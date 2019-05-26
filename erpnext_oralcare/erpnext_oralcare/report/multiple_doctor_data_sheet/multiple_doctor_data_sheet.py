@@ -7,6 +7,8 @@ import datetime
 from frappe.utils import flt
 import json
 
+billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
+
 def execute(filters=None):
 	columns, data = [], []
 
@@ -70,44 +72,55 @@ def execute(filters=None):
 		for item in si_items:
 			reference_dt = item.reference_dt
 
-			if not reference_dt == 'Clinical Procedure':
+			if reference_dt not in billable_healtcare_doctypes:
 				continue
 
 			reference_dn = item.reference_dn
-			clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
-			practitioner = clinical_procedure.practitioner
-
-			if doctor_filter:
-				if practitioner != doctor_filter:
-					continue
-
+			healthcare_doc = frappe.get_doc(reference_dt, reference_dn)
 			amount = item.amount
 			rate = item.rate
 			qty = item.qty
 			doctor_share = item.doctor_share
 			company_share = amount
+			practitioner = None
 
-			if doctor_share:
-				company_share = flt(amount) - flt(doctor_share)
-				doctor_share = flt(doctor_share)
+			if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
+				practitioner = healthcare_doc.practitioner
+			elif reference_dt == 'Procedure Prescription' or reference_dt == 'Lab Prescription':
+				encounter = healthcare_doc.parent
+				if encounter:
+					encounter_doc = frappe.get_doc('Patient Encounter', encounter)
+					if encounter_doc:
+						practitioner = encounter_doc.practitioner
 			else:
-				doctor_share = 0.0
+				continue
 
 			if practitioner:
-				doctor_id = practitioner
-				if doctor_id not in doctors_month_wise_share:
-					doctors_month_wise_share[doctor_id] = {}
+				if doctor_filter:
+					if practitioner != doctor_filter:
+						continue
 
-				month_year_key = month_name + " " + str(year)
+				if doctor_share:
+					company_share = flt(amount) - flt(doctor_share)
+					doctor_share = flt(doctor_share)
+				else:
+					doctor_share = 0.0
 
-				if month_year_key not in doctors_month_wise_share[doctor_id]:
-					doctors_month_wise_share[doctor_id][month_year_key] = {
-						'self': 0.0,
-						'co': 0.0
-					} 
+				if practitioner:
+					doctor_id = practitioner
+					if doctor_id not in doctors_month_wise_share:
+						doctors_month_wise_share[doctor_id] = {}
 
-				doctors_month_wise_share[doctor_id][month_year_key]['self'] += doctor_share
-				doctors_month_wise_share[doctor_id][month_year_key]['co'] += company_share
+					month_year_key = month_name + " " + str(year)
+
+					if month_year_key not in doctors_month_wise_share[doctor_id]:
+						doctors_month_wise_share[doctor_id][month_year_key] = {
+							'self': 0.0,
+							'co': 0.0
+						} 
+
+					doctors_month_wise_share[doctor_id][month_year_key]['self'] += doctor_share
+					doctors_month_wise_share[doctor_id][month_year_key]['co'] += company_share
 
 	for doctor_id in doctors_month_wise_share:
 		temp_rate = {}

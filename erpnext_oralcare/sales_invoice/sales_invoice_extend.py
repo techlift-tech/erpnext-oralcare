@@ -1,8 +1,7 @@
 import frappe
 from frappe import _
-from erpnext_oralcare.utils import get_healthcare_doctypes
 
-billable_healtcare_doctypes = get_healthcare_doctypes()
+billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
 def add_accounting_entries(doc, method):
 	sales_items = doc.items
