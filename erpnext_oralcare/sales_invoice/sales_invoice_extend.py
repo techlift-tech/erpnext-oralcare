@@ -1,8 +1,8 @@
 import frappe
 from frappe import _
-from frappe import _
+from erpnext_oralcare.utils import get_healthcare_doctypes
 
-billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
+billable_healtcare_doctypes = get_healthcare_doctypes()
 
 def add_accounting_entries(doc, method):
 	sales_items = doc.items
@@ -56,8 +56,9 @@ def add_accounting_entries(doc, method):
 			oralcare_settings = frappe.get_doc('Oralcare Settings')
 			commission_account = oralcare_settings.doctor_commission_payable_accont
 			commission_sales_account = oralcare_settings.commission_sales_account
+			party_type = oralcare_settings.party_type
 
-			if commission_account and commission_sales_account:
+			if commission_account and commission_sales_account and party_type:
 				gl_entry_debit = doc.get_gl_dict({
 					"account": commission_sales_account,
 					"debit": gl_amount,
@@ -131,14 +132,14 @@ def sales_invoice_doctors_share_calculate(doc, method):
 
 def get_doctor_commission(item_code, doctor, qty, amount):
 		if doctor:
-			commission_price = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code}, fields = ['commission_type', 'commission_valie'])
+			commission_price = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code}, fields = ['commission_type', 'commission_value'])
 			share_value = 0
 
 			if len(commission_price) != 1:
 				return 0
 
 			total_deduction = 0
-			deductions = frappe.get_list('Deduction Before Commission', fields = ['type', 'value'])
+			deductions = frappe.get_list('Deduction Before Commission', fields = ['deduction_type', 'deduction_value'])
 			for deduction in deductions:
 				deduction_type = deduction.deduction_type
 				deduction_value = deduction.deduction_value
@@ -163,8 +164,8 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 			amount = amount - total_deduction
 
 			if amount > 0:
-				commission_type = commission_price.commission_type
-				commission_value = commission_price.commission_value
+				commission_type = commission_price[0].commission_type
+				commission_value = commission_price[0].commission_value
 
 				if (commission_type and commission_value):
 					if commission_type == 'Percent':
