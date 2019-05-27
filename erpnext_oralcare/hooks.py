@@ -18,6 +18,8 @@ app_license = "MIT"
 # app_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
 
+# app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # web_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
@@ -31,10 +33,11 @@ page_js = {
 doctype_js = {
 	"Patient Encounter": "public/js/patient_encounter.js",
 	"Lead": "public/js/lead.js",
-	"Kanban Board": "public/js/kanban_board.js"
+	"Kanban Board": "public/js/kanban_board.js",
+	"*": "public/js/kanban_board_extend.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {"Patient Appointment" : "public/js/kanban_board_extend.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -135,4 +138,4 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item, Lead, Patient, Account")]]}]
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Kanban Board, Sales Invoice Item, Lead, Patient, Account")]]}]

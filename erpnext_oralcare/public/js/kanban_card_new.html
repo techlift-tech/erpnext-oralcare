@@ -1,0 +1,14 @@
+<div class="kanban-card-wrapper {{ disable_click }}" data-name="{{name}}">
+	<div class="kanban-card content">
+		<div class="kanban-card-title">
+			{{ title }}
+			<br>
+			{% for field in fields_string %}
+				{{ field }}
+				<br>
+			{% endfor %}
+		</div>
+		<div class="kanban-card-meta">
+		</div>
+	</div>
+</div>
