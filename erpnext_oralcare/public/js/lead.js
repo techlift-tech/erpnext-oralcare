@@ -1,5 +1,3 @@
-console.log('test')
-
 erpnext.LeadController = erpnext.LeadController.extend({
 	refresh: function () {
 		var doc = this.frm.doc;

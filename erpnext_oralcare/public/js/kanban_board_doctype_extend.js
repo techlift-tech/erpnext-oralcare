@@ -23,7 +23,7 @@ frappe.ui.form.on('Kanban Board', 'reference_doctype', function(frm){
 	}
 	frappe.meta.get_docfield('Kanban Board Card Fields', 'field', frm.docname).options = fields_to_add
 })
-frappe.ui.form.on('Kanban Board', 'field_type', function(frm){
+frappe.ui.form.on('Kanban Board', 'field_name', function(frm){
 	var field = frappe.meta.get_field(frm.doc.reference_doctype, frm.doc.field_name);
 	frm.doc.columns = [];
 	if(frm.doc.board_based_on == 'Select') {
