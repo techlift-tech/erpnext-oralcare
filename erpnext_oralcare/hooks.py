@@ -99,9 +99,6 @@ doc_events = {
 	"Sales Invoice": {
 		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate",
 		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_accounting_entries"
-	}, 
-	"Patient Appointment": {
-		"validate": "erpnext_oralcare.patient_appointment.patient_appointment_extend.set_custom_title"
 	}
 }
 
