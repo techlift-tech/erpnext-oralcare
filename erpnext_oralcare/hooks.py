@@ -135,4 +135,4 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Kanban Board, Sales Invoice Item, Lead, Patient, Account")]]}]
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Patient Appointment, Kanban Board, Sales Invoice Item, Lead, Patient, Account")]]}]
