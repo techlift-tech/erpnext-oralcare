@@ -14,7 +14,10 @@ frappe.views.calendar['Patient Appointment'] = {
 		disableResizing: true,
 		minTime: "09:00:00",
 		maxTime: "21:00:00",
-		hiddenDays: [0]
+		hiddenDays: [0],
+		noEventsMessage: "No Appointments to Show",
+		selectable: false,
+		nowIndicator: false
 	},
 	field_map: {
 		"start": "start",
@@ -22,7 +25,9 @@ frappe.views.calendar['Patient Appointment'] = {
 		"id": "name",
 		"title": "patient",
 		"allDay": "allDay",
-		"eventColor": "color"
+		"eventColor": "color",
+		"description": "practitioner",
+		"tooltip": "practitioner"
 	},
 	order_by: "appointment_date",
 	gantt: true,
