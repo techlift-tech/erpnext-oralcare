@@ -26,8 +26,8 @@ frappe.views.calendar['Patient Appointment'] = {
 		"title": "patient",
 		"allDay": "allDay",
 		"eventColor": "color",
-		"description": "practitioner",
-		"tooltip": "practitioner"
+		"description": "description",
+		"tooltip": "description"
 	},
 	order_by: "appointment_date",
 	gantt: true,

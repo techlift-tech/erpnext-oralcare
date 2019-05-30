@@ -13,6 +13,7 @@ def get_events(start, end, filters=None):
 		appointment.end = appointment.start + datetime.timedelta(minutes = appointment.duration)
 		appointment.color = 'blue'
 		appointment.allDay = 0
+		appointment.description = "Dr: " + appointment.practitioner
 
 	return appointments
 
