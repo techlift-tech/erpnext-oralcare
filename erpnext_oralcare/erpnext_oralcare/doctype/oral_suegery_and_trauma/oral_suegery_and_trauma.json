@@ -1,0 +1,212 @@
+{
+ "creation": "2019-05-23 23:17:25.040902",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "extra_oral_examination",
+  "open_wounds",
+  "lacerations_and_contusions",
+  "supraorbital_and_infraorbital_rim",
+  "zygomatic_frontal_suture",
+  "zygomatic_arches",
+  "column_break_7",
+  "tmj",
+  "inspection_of_scalp",
+  "battles_sign",
+  "nose",
+  "csf_rhinorrhoea",
+  "middle_third_of_face",
+  "mandible",
+  "maxilla",
+  "eyes_section",
+  "edema_of_eyelids",
+  "circumorbital_ecchymosis",
+  "subconjunctival_haemorrhage",
+  "visual_acuity_in_both_eyes",
+  "column_break_21",
+  "ocular_movements",
+  "diplopia",
+  "ocular_levels",
+  "intraoral_examination_section",
+  "ecchymosis",
+  "guerin__sign",
+  "occlusal_plane",
+  "section_break_29",
+  "fractured_teeth_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "extra_oral_examination",
+   "fieldtype": "HTML",
+   "label": "EXTRA ORAL EXAMINATION",
+   "options": "<p>EXTRA ORAL EXAMINATION</p>"
+  },
+  {
+   "fieldname": "open_wounds",
+   "fieldtype": "Data",
+   "label": "Open wounds"
+  },
+  {
+   "fieldname": "lacerations_and_contusions",
+   "fieldtype": "Data",
+   "label": "Lacerations and Contusions"
+  },
+  {
+   "fieldname": "supraorbital_and_infraorbital_rim",
+   "fieldtype": "Data",
+   "label": "Supraorbital and infraorbital rim"
+  },
+  {
+   "fieldname": "zygomatic_frontal_suture",
+   "fieldtype": "Data",
+   "label": "Zygomatic frontal suture"
+  },
+  {
+   "fieldname": "zygomatic_arches",
+   "fieldtype": "Data",
+   "label": "Zygomatic arches"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tmj",
+   "fieldtype": "Data",
+   "label": "TMJ"
+  },
+  {
+   "fieldname": "inspection_of_scalp",
+   "fieldtype": "Data",
+   "label": "Inspection of Scalp"
+  },
+  {
+   "fieldname": "battles_sign",
+   "fieldtype": "Data",
+   "label": "Battles sign"
+  },
+  {
+   "fieldname": "nose",
+   "fieldtype": "Data",
+   "label": "Nose"
+  },
+  {
+   "fieldname": "csf_rhinorrhoea",
+   "fieldtype": "Data",
+   "label": "CSF Rhinorrhoea"
+  },
+  {
+   "fieldname": "middle_third_of_face",
+   "fieldtype": "Data",
+   "label": "Middle third of face"
+  },
+  {
+   "fieldname": "mandible",
+   "fieldtype": "Data",
+   "label": "Mandible"
+  },
+  {
+   "fieldname": "maxilla",
+   "fieldtype": "Data",
+   "label": "Maxilla"
+  },
+  {
+   "fieldname": "eyes_section",
+   "fieldtype": "Section Break",
+   "label": "Eyes"
+  },
+  {
+   "fieldname": "edema_of_eyelids",
+   "fieldtype": "Check",
+   "label": "Edema of eyelids"
+  },
+  {
+   "fieldname": "circumorbital_ecchymosis",
+   "fieldtype": "Check",
+   "label": "Circumorbital ecchymosis"
+  },
+  {
+   "fieldname": "subconjunctival_haemorrhage",
+   "fieldtype": "Check",
+   "label": "Subconjunctival haemorrhage"
+  },
+  {
+   "fieldname": "visual_acuity_in_both_eyes",
+   "fieldtype": "Check",
+   "label": "Visual Acuity in Both Eyes"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ocular_movements",
+   "fieldtype": "Check",
+   "label": "Ocular movements"
+  },
+  {
+   "fieldname": "diplopia",
+   "fieldtype": "Check",
+   "label": "Diplopia"
+  },
+  {
+   "fieldname": "ocular_levels",
+   "fieldtype": "Check",
+   "label": "Ocular levels"
+  },
+  {
+   "fieldname": "intraoral_examination_section",
+   "fieldtype": "Section Break",
+   "label": "INTRAORAL EXAMINATION"
+  },
+  {
+   "fieldname": "ecchymosis",
+   "fieldtype": "Data",
+   "label": "Ecchymosis"
+  },
+  {
+   "fieldname": "guerin__sign",
+   "fieldtype": "Data",
+   "label": "Guerin  Sign"
+  },
+  {
+   "fieldname": "occlusal_plane",
+   "fieldtype": "Data",
+   "label": "Occlusal Plane"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fractured_teeth_details",
+   "fieldtype": "Table",
+   "label": "FRACTURED TEETH ELLIS CLASSIFICATION",
+   "options": "Fractured Teeth Details"
+  }
+ ],
+ "modified": "2019-05-23 23:30:29.013763",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Oral Suegery and Trauma",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "track_seen": 1
+}

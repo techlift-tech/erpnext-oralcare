@@ -1,0 +1,58 @@
+{
+ "creation": "2019-05-12 15:50:49.238840",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "teeth_number",
+  "status_of_endodontic_treatment",
+  "final_restoration",
+  "available_crown_heigh",
+  "characteristics_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "teeth_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Teeth Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status_of_endodontic_treatment",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status of Endodontic Treatment",
+   "options": "\nCompleted\nPartially Complete\nOn-going\nFailed"
+  },
+  {
+   "fieldname": "final_restoration",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Final Restoration"
+  },
+  {
+   "fieldname": "available_crown_heigh",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Available Crown Heigh"
+  },
+  {
+   "fieldname": "characteristics_details",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Characteristics/ Details"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-16 19:32:57.180400",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Endodontically treated Teeth",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}
