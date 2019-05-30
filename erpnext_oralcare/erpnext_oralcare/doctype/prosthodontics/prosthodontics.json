@@ -2,29 +2,7 @@
  "creation": "2019-05-23 23:41:50.144789",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "missing_teeth_history",
-  "endodontically_treated_teeth",
-  "denture_bearing_areas_section",
-  "root_pieces",
-  "bony_spicules",
-  "healing_socket",
-  "inflammation",
-  "column_break_8",
-  "opposing_teeth_occlusion",
-  "tori",
-  "palatal_throat_form",
-  "lateral_throat_form",
-  "gag_reflex",
-  "alveolar_ridge_section",
-  "arch_size_and_form",
-  "ridge_contour",
-  "interarch_space",
-  "redundant_tissue_hyperplastic_tissue",
-  "bony_undercuts",
-  "section_break_20",
-  "prosthesis_defect"
- ],
+ 
  "fields": [
   {
    "fieldname": "missing_teeth_history",

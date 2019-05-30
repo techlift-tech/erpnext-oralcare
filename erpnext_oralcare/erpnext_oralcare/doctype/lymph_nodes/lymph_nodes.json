@@ -3,10 +3,7 @@
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
- "field_order": [
-  "type_of_lymph_node",
-  "characteristic"
- ],
+ 
  "fields": [
   {
    "fieldname": "type_of_lymph_node",

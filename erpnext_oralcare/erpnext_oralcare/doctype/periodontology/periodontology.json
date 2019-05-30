@@ -2,27 +2,7 @@
  "creation": "2019-05-23 23:35:04.714437",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "family_history_of_tooth_loss",
-  "lip_seal",
-  "halitosis",
-  "frenal_attachment",
-  "column_break_5",
-  "contact_relation",
-  "tenderness",
-  "pathological_migration",
-  "fremitus_test",
-  "tension_test",
-  "section_break_11",
-  "gingival_and_periodontal_status",
-  "recession",
-  "pockets",
-  "attachment_loss",
-  "furcation_involvement",
-  "perio_endo_environment",
-  "section_break_18",
-  "loss_of_attachment"
- ],
+ 
  "fields": [
   {
    "fieldname": "family_history_of_tooth_loss",

@@ -2,14 +2,7 @@
  "creation": "2019-05-23 23:54:09.221754",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "type_of_prosthesis",
-  "teeth_involved",
-  "duration_of_prosthesis",
-  "type_of_defect",
-  "reason_for_defect",
-  "characteristics"
- ],
+ 
  "fields": [
   {
    "fieldname": "type_of_prosthesis",

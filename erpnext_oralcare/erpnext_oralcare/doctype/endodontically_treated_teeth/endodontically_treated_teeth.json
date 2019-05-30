@@ -3,13 +3,7 @@
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
- "field_order": [
-  "teeth_number",
-  "status_of_endodontic_treatment",
-  "final_restoration",
-  "available_crown_heigh",
-  "characteristics_details"
- ],
+ 
  "fields": [
   {
    "fieldname": "teeth_number",
