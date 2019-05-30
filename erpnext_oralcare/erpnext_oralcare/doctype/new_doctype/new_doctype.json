@@ -2,11 +2,7 @@
  "creation": "2019-05-13 13:07:51.774258",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "inflammation",
-  "amended_from",
-  "opposing_teet"
- ],
+ 
  "fields": [
   {
    "fieldname": "inflammation",

@@ -2,9 +2,7 @@
  "creation": "2019-05-15 01:11:55.274550",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "name1"
- ],
+ 
  "fields": [
   {
    "fieldname": "name1",

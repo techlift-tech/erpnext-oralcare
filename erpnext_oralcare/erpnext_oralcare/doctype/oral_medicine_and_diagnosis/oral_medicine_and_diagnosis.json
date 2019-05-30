@@ -2,10 +2,7 @@
  "creation": "2019-05-23 09:48:51.940473",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "general_physical_examinatio",
-  "amended_from"
- ],
+ 
  "fields": [
   {
    "description": "(Gait; Signs of Anemia; Skin; Hair; Eyes; Nose; Extremities)",
