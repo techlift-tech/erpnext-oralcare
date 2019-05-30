@@ -1,0 +1,50 @@
+{
+ "creation": "2019-05-23 23:54:09.221754",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ 
+ "fields": [
+  {
+   "fieldname": "type_of_prosthesis",
+   "fieldtype": "Select",
+   "label": "Type of Prosthesis",
+   "options": "\nComplete Denture\nCast Partial Denture\nCrowns\nBridges\nImplants"
+  },
+  {
+   "fieldname": "teeth_involved",
+   "fieldtype": "Data",
+   "label": "Teeth Involved"
+  },
+  {
+   "fieldname": "duration_of_prosthesis",
+   "fieldtype": "Data",
+   "label": "Duration of Prosthesis"
+  },
+  {
+   "fieldname": "type_of_defect",
+   "fieldtype": "Data",
+   "label": "Type of Defect"
+  },
+  {
+   "fieldname": "reason_for_defect",
+   "fieldtype": "Data",
+   "label": "Reason for Defect"
+  },
+  {
+   "fieldname": "characteristics",
+   "fieldtype": "Data",
+   "label": "Characteristics"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-23 23:55:15.222088",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Prosthesis Defect",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}
