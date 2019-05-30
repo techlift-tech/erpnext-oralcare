@@ -1,0 +1,58 @@
+{
+ "creation": "2019-05-13 13:07:51.774258",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "inflammation",
+  "amended_from",
+  "opposing_teet"
+ ],
+ "fields": [
+  {
+   "fieldname": "inflammation",
+   "fieldtype": "Data",
+   "label": "Inflammation",
+   "length": 100,
+   "translatable": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "new Doctype",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "opposing_teet",
+   "fieldtype": "Data",
+   "label": "Opposing Teet",
+   "length": 100
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-05-13 13:10:51.263228",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "new Doctype",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "track_seen": 1
+}

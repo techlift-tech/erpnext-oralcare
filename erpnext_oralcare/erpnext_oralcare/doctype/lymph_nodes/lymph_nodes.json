@@ -1,0 +1,36 @@
+{
+ "creation": "2019-05-12 01:16:36.277864",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type_of_lymph_node",
+  "characteristic"
+ ],
+ "fields": [
+  {
+   "fieldname": "type_of_lymph_node",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Lymph Node",
+   "options": "\nSubmandibular\nSubmental\nPre auricular\nPost auricular\nOccipital\nCervical\nClavicular\nAxillary\nNeck",
+   "reqd": 1
+  },
+  {
+   "fieldname": "characteristic",
+   "fieldtype": "Data",
+   "label": "Characteristic"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-12 01:16:36.277864",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Lymph Nodes",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}

@@ -1,0 +1,50 @@
+{
+ "creation": "2019-05-12 15:47:10.660826",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tooth_number",
+  "period_of_edentulousness",
+  "prosthetic_replacement",
+  "reason_for_tooth_loss"
+ ],
+ "fields": [
+  {
+   "fieldname": "tooth_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tooth Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_of_edentulousness",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Period of Edentulousness"
+  },
+  {
+   "fieldname": "prosthetic_replacement",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Prosthetic Replacement "
+  },
+  {
+   "fieldname": "reason_for_tooth_loss",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reason for Tooth Loss"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-16 19:33:08.733685",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Missing Teeth History",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}

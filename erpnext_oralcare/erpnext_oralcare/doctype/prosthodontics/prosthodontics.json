@@ -1,0 +1,160 @@
+{
+ "creation": "2019-05-23 23:41:50.144789",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "missing_teeth_history",
+  "endodontically_treated_teeth",
+  "denture_bearing_areas_section",
+  "root_pieces",
+  "bony_spicules",
+  "healing_socket",
+  "inflammation",
+  "column_break_8",
+  "opposing_teeth_occlusion",
+  "tori",
+  "palatal_throat_form",
+  "lateral_throat_form",
+  "gag_reflex",
+  "alveolar_ridge_section",
+  "arch_size_and_form",
+  "ridge_contour",
+  "interarch_space",
+  "redundant_tissue_hyperplastic_tissue",
+  "bony_undercuts",
+  "section_break_20",
+  "prosthesis_defect"
+ ],
+ "fields": [
+  {
+   "fieldname": "missing_teeth_history",
+   "fieldtype": "Table",
+   "label": "Missing Teeth History",
+   "options": "Missing Teeth History"
+  },
+  {
+   "fieldname": "endodontically_treated_teeth",
+   "fieldtype": "Table",
+   "label": "Endodontically treated Teeth",
+   "options": "Endodontically treated Teeth"
+  },
+  {
+   "fieldname": "denture_bearing_areas_section",
+   "fieldtype": "Section Break",
+   "label": "DENTURE BEARING AREAS"
+  },
+  {
+   "fieldname": "root_pieces",
+   "fieldtype": "Data",
+   "label": "Root Pieces"
+  },
+  {
+   "fieldname": "bony_spicules",
+   "fieldtype": "Data",
+   "label": "Bony Spicules"
+  },
+  {
+   "fieldname": "healing_socket",
+   "fieldtype": "Data",
+   "label": "Healing Socket"
+  },
+  {
+   "fieldname": "inflammation",
+   "fieldtype": "Data",
+   "label": "Inflammation"
+  },
+  {
+   "fieldname": "opposing_teeth_occlusion",
+   "fieldtype": "Data",
+   "label": "Opposing Teeth Occlusion/"
+  },
+  {
+   "fieldname": "tori",
+   "fieldtype": "Data",
+   "label": "Tori"
+  },
+  {
+   "fieldname": "palatal_throat_form",
+   "fieldtype": "Data",
+   "label": "Palatal throat form"
+  },
+  {
+   "fieldname": "lateral_throat_form",
+   "fieldtype": "Data",
+   "label": "Lateral throat form"
+  },
+  {
+   "fieldname": "gag_reflex",
+   "fieldtype": "Data",
+   "label": "Gag reflex"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "alveolar_ridge_section",
+   "fieldtype": "Section Break",
+   "label": "ALVEOLAR RIDGE"
+  },
+  {
+   "fieldname": "arch_size_and_form",
+   "fieldtype": "Data",
+   "label": "Arch size and form"
+  },
+  {
+   "fieldname": "ridge_contour",
+   "fieldtype": "Data",
+   "label": "Ridge contour, relation, parallelism and defects"
+  },
+  {
+   "fieldname": "interarch_space",
+   "fieldtype": "Data",
+   "label": "Interarch space"
+  },
+  {
+   "fieldname": "redundant_tissue_hyperplastic_tissue",
+   "fieldtype": "Data",
+   "label": "Redundant tissue hyperplastic tissue"
+  },
+  {
+   "fieldname": "bony_undercuts",
+   "fieldtype": "Data",
+   "label": "Bony undercuts"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prosthesis_defect",
+   "fieldtype": "Table",
+   "label": "Prosthesis Defect",
+   "options": "Prosthesis Defect"
+  }
+ ],
+ "modified": "2019-05-23 23:54:56.584893",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Prosthodontics",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "track_seen": 1
+}

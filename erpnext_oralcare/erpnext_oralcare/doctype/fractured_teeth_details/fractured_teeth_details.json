@@ -1,0 +1,44 @@
+{
+ "creation": "2019-05-12 15:13:44.971663",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tooth_number",
+  "type_of_fracture",
+  "characteristics"
+ ],
+ "fields": [
+  {
+   "fieldname": "tooth_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tooth Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type_of_fracture",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Fracture",
+   "options": "\nClass 1\nClass 2\nClass 3\nClass 4\nClass 5\nClass 6\nClass 7\nClass 8\nClass 9"
+  },
+  {
+   "fieldname": "characteristics",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Characteristics"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-05-16 19:34:51.239994",
+ "modified_by": "Administrator",
+ "module": "Erpnext Oralcare",
+ "name": "Fractured Teeth Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "track_changes": 1
+}
