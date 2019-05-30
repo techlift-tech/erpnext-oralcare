@@ -18,6 +18,8 @@ app_license = "MIT"
 # app_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
 
+# app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # web_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
@@ -29,12 +31,15 @@ page_js = {
 }
 # include js in doctype views
 doctype_js = {
-	"Patient Encounter": "public/js/patient_encounter.js"
+	"Patient Encounter": "public/js/patient_encounter.js",
+	"Lead": "public/js/lead.js",
+	"Kanban Board": "public/js/kanban_board_doctype_extend.js",
+	"Patient Appointment": "public/js/patient_appointment.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {"Patient Appointment" : "public/js/kanban_board_extend.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+doctype_calendar_js = {"Patient Appointment" : "public/js/patient_appointment_calendar.js"}
 
 # Home Pages
 # ----------
@@ -93,7 +98,8 @@ doctype_js = {
 # }
 doc_events = {
 	"Sales Invoice": {
-		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate"
+		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate",
+		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_accounting_entries"
 	}
 }
 
@@ -129,5 +135,6 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Sales Invoice Item","Customer","Patient","Endodontically treated Teeth","Missing Teeth History","Regressive Alteration","Filled Teeth","CONSERVATIVE DENT AND ENDO","Loss of Attachment",
+
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Lead", "Account", "Patient", "Kanban Board", "Sales Invoice Item","Customer","Patient","Endodontically treated Teeth","Missing Teeth History","Regressive Alteration","Filled Teeth","CONSERVATIVE DENT AND ENDO","Loss of Attachment",
 	"Fractured Teeth Details","Lymph Nodes","Vital Signs","Patient Appointment","Patient Encounter")]]}]

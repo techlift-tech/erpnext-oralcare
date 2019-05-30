@@ -1,5 +1,4 @@
 frappe.ui.form.on("Patient Encounter", "patient", function(frm){
-	console.log(frm)
 	if(frm.doc.patient){
 		frappe.call({
 			"method": "erpnext.healthcare.doctype.patient.patient.get_patient_detail",

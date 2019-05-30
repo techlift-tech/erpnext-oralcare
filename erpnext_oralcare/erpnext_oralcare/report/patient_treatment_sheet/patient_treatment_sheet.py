@@ -7,6 +7,8 @@ from erpnext.accounts.report.item_wise_sales_register.item_wise_sales_register i
 import copy
 from frappe.utils import flt
 
+billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
+
 def execute(filters=None):
 
 	if not filters:
@@ -66,7 +68,7 @@ def execute(filters=None):
 			for item in si_items:
 				reference_dt = item.reference_dt
 
-				if not reference_dt == 'Clinical Procedure':
+				if not reference_dt in billable_healtcare_doctypes:
 					continue
 
 				amount = item.amount
@@ -74,33 +76,41 @@ def execute(filters=None):
 				rate = item.rate
 				qty = item.qty
 
-				clinical_procedure = frappe.get_doc('Clinical Procedure', reference_dn)
-				template = clinical_procedure.procedure_template
-				practitioner = clinical_procedure.practitioner
-				patient_id = clinical_procedure.patient
+				healthcare_doc = frappe.get_doc(reference_dt, reference_dn)
 
-				doctor_name = ''
-				doctor_first_name = ''
-				if practitioner:
-					doctor_name = practitioner
-					doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
-					if doctor.first_name:
-						doctor_first_name = doctor.first_name
+				if healthcare_doc:
 
-				patient = frappe.get_doc('Patient', patient_id) 
-				patient_name = patient.patient_name
+					if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
+						template =  healthcare_doc.procedure_template if (reference_dt == 'Clinical Procedure') else 'Patient Encounter'
+						practitioner = healthcare_doc.practitioner
+						patient_id = healthcare_doc.patient
 
-				array_to_append = [si_name.name, posting_date, clinical_procedure.name, template, doctor_name, doctor_first_name, patient_id, patient_name, qty, rate, amount]
+						doctor_name = ''
+						doctor_first_name = ''
+						if practitioner:
+							doctor_name = practitioner
+							doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
+							if doctor.first_name:
+								doctor_first_name = doctor.first_name
 
-				total_tax = 0
-				for tax in tax_columns:
-					item_tax = items_tax_list.get(item.name, {}).get(tax, {})
-					array_to_append += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
-					total_tax += flt(item_tax.get("tax_amount"))
+						patient = frappe.get_doc('Patient', patient_id) 
+						patient_name = patient.patient_name
 
-				array_to_append += [total_tax, item.base_net_amount + total_tax, "INR"]
+						array_to_append = [si_name.name, posting_date, healthcare_doc.name, template, doctor_name, doctor_first_name, patient_id, patient_name, qty, rate, amount]
+					elif reference_dt == 'Procedure Prescription' or reference_dt == 'Lab Prescription':
+						pass
+					else:
+						continue
 
-				data.append(array_to_append)
+					total_tax = 0
+					for tax in tax_columns:
+						item_tax = items_tax_list.get(item.name, {}).get(tax, {})
+						array_to_append += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
+						total_tax += flt(item_tax.get("tax_amount"))
+
+					array_to_append += [total_tax, item.base_net_amount + total_tax, "INR"]
+
+					data.append(array_to_append)
 
 	return columns, data
 

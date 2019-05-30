@@ -18,8 +18,6 @@ def execute(filters=None):
 	from_date = filters.get("date_range")[0]
 	to_date = filters.get("date_range")[1]
 
-	column_prefixes = [{'title':'Value to Dr', 'type':'Currency'}, {'title':'Value to Co.', 'type':'Currency'}, {'title':'Value to Co. in%', 'type':'Int'}]
-
 	if from_date and to_date:
 
 		doctor_filter = filters.get("doctor")
@@ -44,13 +42,12 @@ def execute(filters=None):
 			for month in range(start_month, end_month + 1):
 				month_name = datetime.date(1900, month, 1).strftime('%B')
 				month_name = month_name[:3]
-				for prefix_json in column_prefixes:
-					prefix = prefix_json['title']
-					column_json = {
-						'title': prefix_json['title'] + " " + str(month_name) + " " + str(year),
-						'type': prefix_json['type']
-					}
-					columns.append(column_json)
+
+				column_json = {
+					'title': str(month_name) + " " + str(year),
+					'type': "Currency"
+				}
+				columns.append(column_json)
 
 	sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
 
@@ -75,13 +72,13 @@ def execute(filters=None):
 			if reference_dt not in billable_healtcare_doctypes:
 				continue
 
-			reference_dn = item.reference_dn
-			healthcare_doc = frappe.get_doc(reference_dt, reference_dn)
 			amount = item.amount
 			rate = item.rate
 			qty = item.qty
 			doctor_share = item.doctor_share
 			company_share = amount
+			reference_dn = item.reference_dn
+			healthcare_doc = frappe.get_doc(reference_dt, reference_dn)
 			practitioner = None
 
 			if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
@@ -95,32 +92,32 @@ def execute(filters=None):
 			else:
 				continue
 
+			if doctor_filter:
+				if practitioner != doctor_filter:
+					continue
+
+			if doctor_share:
+				company_share = flt(amount) - flt(doctor_share)
+				doctor_share = flt(doctor_share)
+			else:
+				doctor_share = 0.0
+
 			if practitioner:
-				if doctor_filter:
-					if practitioner != doctor_filter:
-						continue
+				doctor_id = practitioner
+				if doctor_id not in doctors_month_wise_share:
+					doctors_month_wise_share[doctor_id] = {}
 
-				if doctor_share:
-					company_share = flt(amount) - flt(doctor_share)
-					doctor_share = flt(doctor_share)
-				else:
-					doctor_share = 0.0
+				month_year_key = month_name + " " + str(year)
 
-				if practitioner:
-					doctor_id = practitioner
-					if doctor_id not in doctors_month_wise_share:
-						doctors_month_wise_share[doctor_id] = {}
+				if month_year_key not in doctors_month_wise_share[doctor_id]:
+					doctors_month_wise_share[doctor_id][month_year_key] = {
+						'self': 0.0,
+						'co': 0.0
+					} 
 
-					month_year_key = month_name + " " + str(year)
+				doctors_month_wise_share[doctor_id][month_year_key]['self'] += doctor_share
+				doctors_month_wise_share[doctor_id][month_year_key]['co'] += company_share
 
-					if month_year_key not in doctors_month_wise_share[doctor_id]:
-						doctors_month_wise_share[doctor_id][month_year_key] = {
-							'self': 0.0,
-							'co': 0.0
-						} 
-
-					doctors_month_wise_share[doctor_id][month_year_key]['self'] += doctor_share
-					doctors_month_wise_share[doctor_id][month_year_key]['co'] += company_share
 
 	for doctor_id in doctors_month_wise_share:
 		temp_rate = {}
@@ -134,9 +131,7 @@ def execute(filters=None):
 			co_amount = doctors_month_wise_share[doctor_id][month]['co']
 			co_percent = (co_amount*100)/(co_amount + self_amount)
 
-			temp_rate[column_prefixes[0]['title'] + " " + month] = self_amount
-			temp_rate[column_prefixes[1]['title'] + " " + month] = co_amount
-			temp_rate[column_prefixes[2]['title'] + " " + month] = co_percent
+			temp_rate[month] = co_amount
 
 		for column_json in columns:
 			column_title = column_json['title']
@@ -144,12 +139,31 @@ def execute(filters=None):
 
 		data.append(temp_data)
 
-		columns_new = ['Doctor Name']
-		for column_json in columns:
-			field_type = column_json['type']
-			title = column_json['title']
-			if field_type == 'Currency':
-				title += ":Currency"
-			columns_new.append(title)
+	columns_new = ['Doctor Name']
+	columns_without_datatype = []
 
-	return columns_new, data
+	for column_json in columns:
+		field_type = column_json['type']
+		title = column_json['title']
+		columns_without_datatype.append(title)
+		if field_type == 'Currency':
+			title += ":Currency"
+		columns_new.append(title)
+
+	datasets = []
+
+	for data_per_doc in data:
+		temp_dataset = {
+			'name': data_per_doc[0],
+			'values': data_per_doc[1:]
+		}
+		datasets.append(temp_dataset)
+
+	chart = {
+		"data": {
+			'labels': columns_without_datatype,
+			'datasets': datasets
+		},
+		"type": "line"
+	}
+	return columns_new, data, None, chart
