@@ -722,7 +722,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-05-30 17:50:50.887932", 
+ "modified": "2019-06-01 09:58:06.196633", 
  "modified_by": "Administrator", 
  "module": "Erpnext Oralcare", 
  "name": "Oral Medicine and Diagnosis", 
@@ -748,7 +748,7 @@
    "write": 1
   }
  ], 
- "quick_entry": 1, 
+ "quick_entry": 0, 
  "read_only": 0, 
  "read_only_onload": 0, 
  "show_name_in_global_search": 0, 

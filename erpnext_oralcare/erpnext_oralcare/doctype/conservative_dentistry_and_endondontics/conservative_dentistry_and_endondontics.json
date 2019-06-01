@@ -488,7 +488,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-05-31 18:09:29.505268", 
+ "modified": "2019-06-01 09:57:25.400505", 
  "modified_by": "Administrator", 
  "module": "Erpnext Oralcare", 
  "name": "Conservative Dentistry and Endondontics", 
@@ -515,7 +515,7 @@
    "write": 1
   }
  ], 
- "quick_entry": 1, 
+ "quick_entry": 0, 
  "read_only": 0, 
  "read_only_onload": 0, 
  "show_name_in_global_search": 0, 
