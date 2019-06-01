@@ -29,6 +29,18 @@ frappe.ui.form.on("Patient Encounter", "onload", function(frm){
 
 })
 
+frappe.ui.form.on("Patient Encounter", {
+	setup: function(frm) {
+		frm.dashboard.init_data()
+		var dashboard_object = {
+			items: ['Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Suegery and Trauma', 'Periodontology', 'Prosthodontics'],
+			label: 'Case History'
+		}
+		frm.dashboard.add_transactions(dashboard_object)
+	}
+});
+
+
 function form_patient_info_html(data){
 
 	var blood_group = data.message.blood_group || ''

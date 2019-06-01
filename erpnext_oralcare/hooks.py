@@ -136,4 +136,4 @@ doc_events = {
 # 	"frappe.desk.doctype.event.event.get_events": "erpnext_oralcare.event.get_events"
 # }
 
-fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Lead", "Account", "Patient", "Kanban Board", "Sales Invoice Item","Customer","Patient","Endodontically treated Teeth","Missing Teeth History","Regressive Alteration","Filled Teeth","CONSERVATIVE DENT AND ENDO","Loss of Attachment","Fractured Teeth Details","Lymph Nodes","Vital Signs","Patient Appointment","Patient Encounter")]]}]
+fixtures = [{"dt":"Custom Field", "filters": [["dt", "in", ("Lead", "Account", "Patient", "Kanban Board", "Sales Invoice Item","Customer","Patient","Vital Signs","Patient Appointment","Patient Encounter")]]}]
