@@ -1,11 +1,6 @@
 frappe.ui.form.on("Patient Appointment", {
 	after_save: function(frm) {
 		frappe.set_route("List", "Patient Appointment", "Calendar", "Default");
-	},
-	make_dashboard: function(frm) {
-	},
-	onload: function(frm) {
-		frm.trigger('make_dashboard')
 	}
 });
 
