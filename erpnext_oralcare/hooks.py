@@ -34,7 +34,8 @@ doctype_js = {
 	"Patient Encounter": "public/js/patient_encounter.js",
 	"Lead": "public/js/lead.js",
 	"Kanban Board": "public/js/kanban_board_doctype_extend.js",
-	"Patient Appointment": "public/js/patient_appointment.js"
+	"Patient Appointment": "public/js/patient_appointment.js",
+	"Patient": "public/js/patient.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_list_js = {"Patient Appointment" : "public/js/kanban_board_extend.js"}
@@ -100,7 +101,23 @@ doc_events = {
 	"Sales Invoice": {
 		"before_save": "erpnext_oralcare.sales_invoice.sales_invoice_extend.sales_invoice_doctors_share_calculate",
 		"on_submit": "erpnext_oralcare.sales_invoice.sales_invoice_extend.add_accounting_entries"
+	},
+	"Prosthodontics": {
+		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
+	},
+	"Periodontology": {
+		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
+	},
+	"Oral Suegery and Trauma": {
+		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
+	},
+	"Oral Medicine and Diagnosis": {
+		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
+	},
+	"Conservative Dentistry and Endondontics": {
+		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
 	}
+
 }
 
 # Scheduled Tasks
