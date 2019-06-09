@@ -5,13 +5,14 @@ frappe.ui.form.on('Periodontology', {
 	// refresh: function(frm) {
 
 	// }
-	patient_encounter: function(frm) {
-		if(frm.doc.patient_encounter){
+	//
+	encounter: function(frm) {
+		if(frm.doc.encounter){
 			frappe.call({
 				"method": "frappe.client.get",
 				args: {
 					doctype: "Patient Encounter",
-					name: frm.doc.patient_encounter
+					name: frm.doc.encounter
 				},
 				callback: function (data) {
 					frappe.model.set_value(frm.doctype,frm.docname, "patient", data.message.patient);

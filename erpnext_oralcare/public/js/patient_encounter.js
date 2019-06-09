@@ -33,10 +33,20 @@ frappe.ui.form.on("Patient Encounter", {
 	setup: function(frm) {
 		frm.dashboard.init_data()
 		var dashboard_object = {
-			items: ['Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Suegery and Trauma', 'Periodontology', 'Prosthodontics'],
+			items: ['General Case History', 'Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Surgery and Trauma', 'Periodontology', 'Prosthodontics', 'Pedodontics'],
 			label: 'Case History'
 		}
 		frm.dashboard.add_transactions(dashboard_object)
+	},
+	refresh: function(frm){
+		frm.dashboard.links_area.find('.btn-new').each(function(){
+			$(this).removeClass('hidden');
+		})
+	},
+	onload_post_render: function(frm){
+		frm.dashboard.links_area.find('.btn-new').each(function(){
+			$(this).removeClass('hidden');
+		})
 	}
 });
 
