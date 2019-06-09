@@ -4,13 +4,13 @@
 frappe.ui.form.on('Conservative Dentistry and Endondontics', {
 	refresh: function(frm) {
 	},
-	patient_encounter: function(frm) {
-		if(frm.doc.patient_encounter){
+	encounter: function(frm) {
+		if(frm.doc.encounter){
 			frappe.call({
 				"method": "frappe.client.get",
 				args: {
 					doctype: "Patient Encounter",
-					name: frm.doc.patient_encounter
+					name: frm.doc.encounter
 				},
 				callback: function (data) {
 					frappe.model.set_value(frm.doctype,frm.docname, "patient", data.message.patient);
@@ -22,7 +22,12 @@ frappe.ui.form.on('Conservative Dentistry and Endondontics', {
 			frappe.model.set_value(frm.doctype,frm.docname, "patient", '');
 			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
 		}
-	}	
+	},
+	on_submit: function(frm){
+		if(frm.doc.encounter){
+			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
+		}
+	}
 });
 
 /*frappe.ui.form.on("Patient Encounter", "appointment", function(frm){
