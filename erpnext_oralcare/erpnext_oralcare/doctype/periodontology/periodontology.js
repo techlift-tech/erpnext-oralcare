@@ -24,5 +24,10 @@ frappe.ui.form.on('Periodontology', {
 			frappe.model.set_value(frm.doctype,frm.docname, "patient", '');
 			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
 		}
-	}	
+	},
+	on_submit: function(frm){
+		if(frm.doc.encounter){
+			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
+		}
+	}
 });
