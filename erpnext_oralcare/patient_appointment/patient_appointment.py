@@ -19,7 +19,13 @@ def get_events(start, end, filters=None):
 	return appointments
 
 def send_doctors_sms(doc, method):
-	oralcare_settings = frappe.get_doc('Oralcare Settings')
-	doc_sms_message = oralcare_settings.doc_appointment_sms
-	send_sms(doc, doc_sms_message)
-	pass
+	practitioner = doc.practitioner
+	if practitioner:
+		doctor = frappe.get_doc('Healthcare Practitioner', practitioner)
+		if doctor and doctor.mobile_phone:
+			oralcare_settings = frappe.get_doc('Oralcare Settings')
+			doc_sms_message = oralcare_settings.doc_appointment_sms
+			context = {"doc": doc}
+			message = frappe.render_template(doc_sms_message, context)
+			numbers = [doctor.mobile_phone]
+			send_sms(numbers, message)
