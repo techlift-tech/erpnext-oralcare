@@ -1,5 +1,6 @@
 import frappe
 import datetime
+from frappe.core.doctype.sms_settings.sms_settings import send_sms
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
@@ -17,4 +18,8 @@ def get_events(start, end, filters=None):
 
 	return appointments
 
-
+def send_doctors_sms(doc, method):
+	oralcare_settings = frappe.get_doc('Oralcare Settings')
+	doc_sms_message = oralcare_settings.doc_appointment_sms
+	send_sms(doc, doc_sms_message)
+	pass
