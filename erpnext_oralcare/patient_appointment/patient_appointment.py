@@ -4,7 +4,7 @@ from frappe.core.doctype.sms_settings.sms_settings import send_sms
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
-	appointments = frappe.get_list('Patient Appointment', filters=filters, fields=['name', 'patient', 'practitioner', 'status', 'duration', 'appointment_date', 'appointment_time'])
+	appointments = frappe.get_list('Patient Appointment', filters=filters, fields=['patient_name', 'name', 'patient', 'practitioner', 'status', 'duration', 'appointment_date', 'appointment_time'])
 
 	for appointment in appointments:
 		start_date = appointment.appointment_date

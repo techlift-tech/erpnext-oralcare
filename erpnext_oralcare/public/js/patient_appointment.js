@@ -1,8 +1,23 @@
+console.log('hh')
 frappe.ui.form.on("Patient Appointment", {
 	after_save: function(frm) {
 		frappe.set_route("List", "Patient Appointment", "Calendar", "Default");
 	}
 });
+
+frappe.ui.form.on("Patient Appointment", "patient", function(frm){
+	if(frm.doc.patient){
+		frappe.call({
+			"method": "erpnext.healthcare.doctype.patient.patient.get_patient_detail",
+			args: {
+				patient: frm.doc.patient
+			},
+			callback: function (data) {
+				frappe.model.set_value(frm.doctype,frm.docname, "patient_name", data.message.patient_name);
+			}
+		});
+	}
+})
 
 var check_and_set_availability = function(frm) {
 	if(!frm.doc.patient) {

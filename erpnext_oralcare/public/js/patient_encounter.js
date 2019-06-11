@@ -6,7 +6,7 @@ frappe.ui.form.on("Patient Encounter", "patient", function(frm){
 				patient: frm.doc.patient
 			},
 			callback: function (data) {
-				//frm.fields_dict.important_points.html(form_patient_info_html(data))
+				frappe.model.set_value(frm.doctype,frm.docname, "patient_name", data.message.patient_name);
 				sidebar_data(data, frm)
 			}
 		});
