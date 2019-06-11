@@ -35,7 +35,9 @@ doctype_js = {
 	"Lead": "public/js/lead.js",
 	"Kanban Board": "public/js/kanban_board_doctype_extend.js",
 	"Patient Appointment": "public/js/patient_appointment.js",
-	"Patient": "public/js/patient.js"
+	"Patient": "public/js/patient.js",
+	"Lab Test": "public/js/lab_test.js",
+	"Clinical Procedure": "public/js/clinical_procedure.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_list_js = {"Patient Appointment" : "public/js/kanban_board_extend.js"}
