@@ -11,13 +11,13 @@ frappe.ui.form.on('Clinical Procedure', {
 				},
 				callback: function (data) {
 					frappe.model.set_value(frm.doctype,frm.docname, "patient", data.message.patient);
-					frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", data.message.appointment);
+					frappe.model.set_value(frm.doctype,frm.docname, "appointment", data.message.appointment);
 				}
 			});
 		}
 		else{
 			frappe.model.set_value(frm.doctype,frm.docname, "patient", '');
-			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
+			frappe.model.set_value(frm.doctype,frm.docname, "appointment", '');
 		}
 	},
 	on_submit: function(frm){
