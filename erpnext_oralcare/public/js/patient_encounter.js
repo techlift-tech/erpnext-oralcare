@@ -33,7 +33,7 @@ frappe.ui.form.on("Patient Encounter", {
 	setup: function(frm) {
 		frm.dashboard.init_data()
 		var dashboard_case_history_1 = {
-			items: ['General Case History', 'Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Surgery and Trauma'],
+			items: ['General CaseHistory', 'Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Surgery and Trauma'],
 			label: 'Case History'
 		}
 		var dashboard_case_history_2 = {

@@ -121,6 +121,9 @@ doc_events = {
 	},
 	"Patient Appointment": {
 		"after_insert": "erpnext_oralcare.patient_appointment.patient_appointment.send_doctors_sms"
+	},
+	"Patient Encounter": {
+		"before_submit": "erpnext_oralcare.patient_encounter.patient_encounter_extend.submit_case_histories"
 	}
 }
 

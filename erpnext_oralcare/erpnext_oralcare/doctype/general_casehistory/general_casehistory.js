@@ -1,7 +1,7 @@
 // Copyright (c) 2019, Techlift and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('General Case History', {
+frappe.ui.form.on('General CaseHistory', {
 	refresh: function(frm) {
 
 	},
@@ -24,7 +24,7 @@ frappe.ui.form.on('General Case History', {
 			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
 		}
 	},
-	on_submit: function(frm){
+	after_save: function(frm){
 		if(frm.doc.encounter){
 			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
 		}
