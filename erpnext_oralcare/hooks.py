@@ -35,7 +35,9 @@ doctype_js = {
 	"Lead": "public/js/lead.js",
 	"Kanban Board": "public/js/kanban_board_doctype_extend.js",
 	"Patient Appointment": "public/js/patient_appointment.js",
-	"Patient": "public/js/patient.js"
+	"Patient": "public/js/patient.js",
+	"Lab Test": "public/js/lab_test.js",
+	"Clinical Procedure": "public/js/clinical_procedure.js"
 }
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_list_js = {"Patient Appointment" : "public/js/kanban_board_extend.js"}
@@ -119,6 +121,9 @@ doc_events = {
 	},
 	"Patient Appointment": {
 		"after_insert": "erpnext_oralcare.patient_appointment.patient_appointment.send_doctors_sms"
+	},
+	"Patient Encounter": {
+		"before_submit": "erpnext_oralcare.patient_encounter.patient_encounter_extend.submit_case_histories"
 	}
 }
 

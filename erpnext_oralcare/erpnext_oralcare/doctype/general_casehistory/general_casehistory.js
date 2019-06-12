@@ -1,11 +1,10 @@
 // Copyright (c) 2019, Techlift and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Periodontology', {
-	// refresh: function(frm) {
+frappe.ui.form.on('General CaseHistory', {
+	refresh: function(frm) {
 
-	// }
-	//
+	},
 	encounter: function(frm) {
 		if(frm.doc.encounter){
 			frappe.call({
@@ -30,4 +29,5 @@ frappe.ui.form.on('Periodontology', {
 			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
 		}
 	}
+
 });

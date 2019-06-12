@@ -1,9 +1,5 @@
-// Copyright (c) 2019, Techlift and contributors
-// For license information, please see license.txt
-
-frappe.ui.form.on('General Case History', {
+frappe.ui.form.on('Lab Test', {
 	refresh: function(frm) {
-
 	},
 	encounter: function(frm) {
 		if(frm.doc.encounter){
@@ -15,13 +11,11 @@ frappe.ui.form.on('General Case History', {
 				},
 				callback: function (data) {
 					frappe.model.set_value(frm.doctype,frm.docname, "patient", data.message.patient);
-					frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", data.message.appointment);
 				}
 			});
 		}
 		else{
 			frappe.model.set_value(frm.doctype,frm.docname, "patient", '');
-			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
 		}
 	},
 	on_submit: function(frm){
@@ -29,5 +23,6 @@ frappe.ui.form.on('General Case History', {
 			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
 		}
 	}
-
 });
+
+

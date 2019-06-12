@@ -6,7 +6,7 @@ frappe.ui.form.on("Patient Encounter", "patient", function(frm){
 				patient: frm.doc.patient
 			},
 			callback: function (data) {
-				//frm.fields_dict.important_points.html(form_patient_info_html(data))
+				frappe.model.set_value(frm.doctype,frm.docname, "patient_name", data.message.patient_name);
 				sidebar_data(data, frm)
 			}
 		});
@@ -32,11 +32,22 @@ frappe.ui.form.on("Patient Encounter", "onload", function(frm){
 frappe.ui.form.on("Patient Encounter", {
 	setup: function(frm) {
 		frm.dashboard.init_data()
-		var dashboard_object = {
-			items: ['General Case History', 'Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Surgery and Trauma', 'Periodontology', 'Prosthodontics', 'Pedodontics'],
+		var dashboard_case_history_1 = {
+			items: ['General CaseHistory', 'Conservative Dentistry and Endondontics', 'Oral Medicine and Diagnosis', 'Oral Surgery and Trauma'],
 			label: 'Case History'
 		}
-		frm.dashboard.add_transactions(dashboard_object)
+		var dashboard_case_history_2 = {
+			items: ['Periodontology', 'Prosthodontics', 'Pedodontics'],
+			label: 'Case History 1'
+		}
+
+		var dashboard_treatment_object = {
+			items: ['Clinical Procedure', 'Lab Test'],
+			label: 'Treatment'
+		}
+		frm.dashboard.add_transactions(dashboard_treatment_object)
+		frm.dashboard.add_transactions(dashboard_case_history_1)
+		frm.dashboard.add_transactions(dashboard_case_history_2)
 	},
 	refresh: function(frm){
 		frm.dashboard.links_area.find('.btn-new').each(function(){

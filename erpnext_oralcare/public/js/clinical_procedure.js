@@ -1,11 +1,6 @@
-// Copyright (c) 2019, Techlift and contributors
-// For license information, please see license.txt
-
-frappe.ui.form.on('Periodontology', {
-	// refresh: function(frm) {
-
-	// }
-	//
+frappe.ui.form.on('Clinical Procedure', {
+	refresh: function(frm) {
+	},
 	encounter: function(frm) {
 		if(frm.doc.encounter){
 			frappe.call({
@@ -16,18 +11,20 @@ frappe.ui.form.on('Periodontology', {
 				},
 				callback: function (data) {
 					frappe.model.set_value(frm.doctype,frm.docname, "patient", data.message.patient);
-					frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", data.message.appointment);
+					frappe.model.set_value(frm.doctype,frm.docname, "appointment", data.message.appointment);
 				}
 			});
 		}
 		else{
 			frappe.model.set_value(frm.doctype,frm.docname, "patient", '');
-			frappe.model.set_value(frm.doctype,frm.docname, "patient_appointment", '');
+			frappe.model.set_value(frm.doctype,frm.docname, "appointment", '');
 		}
 	},
-	after_save: function(frm){
+	on_submit: function(frm){
 		if(frm.doc.encounter){
 			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
 		}
 	}
 });
+
+
