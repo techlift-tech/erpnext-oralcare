@@ -4,6 +4,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  
+
+
+ 
  "fields": [
   {
    "fieldname": "tooth_number",
