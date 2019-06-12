@@ -11,7 +11,8 @@ def make_patient(source_name, target_doc=None, ignore_permissions=False):
 				"phone": "phone",
 				"gender": "sex",
 				"date_of_birth": "dob",
-				"phone": "mobile"
+				"mobile_no": "mobile",
+				"email_id": "email"
 			}
 		}}, target_doc)
 
