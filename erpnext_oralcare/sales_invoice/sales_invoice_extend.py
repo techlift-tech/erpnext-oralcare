@@ -130,12 +130,12 @@ def sales_invoice_doctors_share_calculate(doc, method):
 	return
 
 def get_doctor_commission(item_code, doctor, qty, amount):
+		share_value = 0
 		if doctor:
 			commission_price = frappe.get_list('Item Commission List', filters = {'doctor_name': doctor, 'item_code': item_code}, fields = ['commission_type', 'commission_value'])
-			share_value = 0
 
 			if len(commission_price) != 1:
-				return 0
+				return share_value
 
 			total_deduction = 0
 			deductions = frappe.get_list('Deduction Before Commission', fields = ['deduction_type', 'deduction_value'])
