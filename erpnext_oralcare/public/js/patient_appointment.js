@@ -1,4 +1,3 @@
-console.log('hh')
 frappe.ui.form.on("Patient Appointment", {
 	after_save: function(frm) {
 		frappe.set_route("List", "Patient Appointment", "Calendar", "Default");
@@ -98,7 +97,11 @@ var check_and_set_availability = function(frm) {
 		var fd = d.fields_dict;
 
 		d.fields_dict["appointment_date"].df.onchange = () => {
-			show_slots(d, fd);
+			if(d.fields_dict['appointment_date'].value < frappe.datetime.get_today()) {
+				frappe.msgprint('You have selected a date in the past')
+			} else {
+				show_slots(d, fd);
+			}
 		};
 		d.fields_dict["practitioner"].df.onchange = () => {
 			if(d.get_value('practitioner') && d.get_value('practitioner') != selected_practitioner){
@@ -162,6 +165,12 @@ var check_and_set_availability = function(frm) {
 										return false;
 									}
 								});
+
+								if((d.get_value('appointment_date') == frappe.datetime.get_today()) && slot_start_time.isBefore(moment(frappe.datetime.now_time(), 'HH:mm:ss'))){
+									// This is time in the past
+									disabled = 'disabled="disabled"';
+								}
+
 								return `<button class="btn btn-default"
 									data-name=${start_str}
 									data-duration=${interval}
