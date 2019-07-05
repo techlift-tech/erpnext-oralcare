@@ -4,6 +4,7 @@
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 0, 
+ "autoname": "CF.-.####", 
  "beta": 0, 
  "creation": "2019-06-13 18:50:43.110358", 
  "custom": 0, 
@@ -2294,11 +2295,11 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-06-21 12:38:54.953906", 
+ "modified": "2019-07-05 13:17:54.601371", 
  "modified_by": "Administrator", 
  "module": "Erpnext Oralcare", 
  "name": "Consent Forms", 
- "name_case": "", 
+ "name_case": "UPPER CASE", 
  "owner": "Administrator", 
  "permissions": [
   {
