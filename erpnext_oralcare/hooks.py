@@ -126,7 +126,8 @@ doc_events = {
 		"before_submit": "erpnext_oralcare.patient_encounter.patient_encounter_extend.submit_case_histories"
 	},
 	"Patient": {
-		"after_insert": "erpnext_oralcare.patient.patient.send_referrer_sms"
+		"after_insert": "erpnext_oralcare.patient.patient.send_referrer_sms",
+		"on_update": "erpnext_oralcare.patient.patient.save_family_name"
 	}
 }
 
