@@ -1,5 +1,4 @@
 {
- "_liked_by": "[]", 
  "allow_copy": 0, 
  "allow_events_in_timeline": 0, 
  "allow_guest_to_view": 0, 
@@ -108,7 +107,7 @@
    "read_only": 0, 
    "remember_last_selected_value": 0, 
    "report_hide": 0, 
-   "reqd": 0, 
+   "reqd": 1, 
    "search_index": 0, 
    "set_only_once": 0, 
    "translatable": 0, 
@@ -983,7 +982,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-06-29 22:39:18.474837", 
+ "modified": "2019-07-07 14:33:31.744681", 
  "modified_by": "Administrator", 
  "module": "Erpnext Oralcare", 
  "name": "Periodontology", 
