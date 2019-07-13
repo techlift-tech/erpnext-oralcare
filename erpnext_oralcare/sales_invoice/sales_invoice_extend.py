@@ -200,8 +200,7 @@ def get_healthcare_services(patient):
 					patient_appointment_obj = frappe.get_doc("Patient Appointment", patient_appointment['name'])
 
 					if patient_appointment_obj.procedure_template:
-						if frappe.db.get_value("Clinical Procedure Template", patient_appointment_obj.procedure_template, "is_billable") == 1:
-							item_to_invoice.append({'reference_type': 'Patient Appointment', 'reference_name': patient_appointment_obj.name, 'service': patient_appointment_obj.procedure_template})
+						pass
 					else:
 						practitioner_exist_in_list = False
 						skip_invoice = False
@@ -266,10 +265,9 @@ def get_healthcare_services(patient):
 			if procedures:
 				for procedure in procedures:
 					procedure_obj = frappe.get_doc("Clinical Procedure", procedure['name'])
-					if not procedure_obj.appointment:
-						if procedure_obj.procedure_template and (frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "is_billable") == 1):
-							item_to_invoice.append({'reference_type': 'Clinical Procedure', 'reference_name': procedure_obj.name,
-							'service': frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "item")})
+					if procedure_obj.procedure_template and (frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "is_billable") == 1):
+						item_to_invoice.append({'reference_type': 'Clinical Procedure', 'reference_name': procedure_obj.name,
+						'service': frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "item")})
 
 			procedures = frappe.get_list("Clinical Procedure",
 			{'patient': patient.name, 'invoice_separately_as_consumables': True, 'consumption_invoiced': False,

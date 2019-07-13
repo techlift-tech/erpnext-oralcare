@@ -1,6 +1,5 @@
 // Healthcare
 var get_healthcare_services_to_invoice = function(frm) {
-	alert('hi')
 	var me = this;
 	let selected_patient = '';
 	var dialog = new frappe.ui.Dialog({
@@ -27,8 +26,7 @@ var get_healthcare_services_to_invoice = function(frm) {
 		var patient = dialog.fields_dict.patient.input.value;
 		if(patient && patient!=selected_patient){
 			selected_patient = patient;
-			var method = "erpnext_oralcare.sales_invoice.sales_invoice_extend.get_healthcare_services"
-;
+			var method = "erpnext_oralcare.sales_invoice.sales_invoice_extend.get_healthcare_services";
 			var args = {patient: patient};
 			var columns = (["service", "reference_name", "reference_type"]);
 			get_healthcare_items(frm, true, $results, $placeholder, method, args, columns);
