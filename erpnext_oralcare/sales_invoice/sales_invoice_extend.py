@@ -1,5 +1,13 @@
+from __future__ import unicode_literals
 import frappe
 from frappe import _
+import datetime
+import math
+from frappe.utils import time_diff_in_hours, rounded, getdate, add_days
+from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_income_account
+from erpnext.healthcare.doctype.fee_validity.fee_validity import create_fee_validity, update_fee_validity
+from erpnext.healthcare.doctype.lab_test.lab_test import create_multiple
+from erpnext.healthcare.utils import *
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
@@ -176,3 +184,130 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 
 		return share_value
 
+@frappe.whitelist()
+def get_healthcare_services(patient):
+	patient = frappe.get_doc("Patient", patient)
+	if patient:
+		if patient.customer:
+			item_to_invoice = []
+			patient_appointments = frappe.get_list("Patient Appointment",{'patient': patient.name, 'invoiced': False},
+			order_by="appointment_date")
+			if patient_appointments:
+				fee_validity_details = []
+				valid_days = frappe.db.get_value("Healthcare Settings", None, "valid_days")
+				max_visit = frappe.db.get_value("Healthcare Settings", None, "max_visit")
+				for patient_appointment in patient_appointments:
+					patient_appointment_obj = frappe.get_doc("Patient Appointment", patient_appointment['name'])
+
+					if patient_appointment_obj.procedure_template:
+						if frappe.db.get_value("Clinical Procedure Template", patient_appointment_obj.procedure_template, "is_billable") == 1:
+							item_to_invoice.append({'reference_type': 'Patient Appointment', 'reference_name': patient_appointment_obj.name, 'service': patient_appointment_obj.procedure_template})
+					else:
+						practitioner_exist_in_list = False
+						skip_invoice = False
+						if fee_validity_details:
+							for validity in fee_validity_details:
+								if validity['practitioner'] == patient_appointment_obj.practitioner:
+									practitioner_exist_in_list = True
+									if validity['valid_till'] >= patient_appointment_obj.appointment_date:
+										validity['visits'] = validity['visits']+1
+										if int(max_visit) > validity['visits']:
+											skip_invoice = True
+									if not skip_invoice:
+										validity['visits'] = 1
+										validity['valid_till'] = patient_appointment_obj.appointment_date + datetime.timedelta(days=int(valid_days))
+						if not practitioner_exist_in_list:
+							valid_till = patient_appointment_obj.appointment_date + datetime.timedelta(days=int(valid_days))
+							visits = 0
+							validity_exist = validity_exists(patient_appointment_obj.practitioner, patient_appointment_obj.patient)
+							if validity_exist:
+								fee_validity = frappe.get_doc("Fee Validity", validity_exist[0][0])
+								valid_till = fee_validity.valid_till
+								visits = fee_validity.visited
+							fee_validity_details.append({'practitioner': patient_appointment_obj.practitioner,
+							'valid_till': valid_till, 'visits': visits})
+
+						if not skip_invoice:
+							practitioner_charge = 0
+							income_account = None
+							service_item = None
+							if patient_appointment_obj.practitioner:
+								service_item, practitioner_charge = service_item_and_practitioner_charge(patient_appointment_obj)
+								income_account = get_income_account(patient_appointment_obj.practitioner, patient_appointment_obj.company)
+							item_to_invoice.append({'reference_type': 'Patient Appointment', 'reference_name': patient_appointment_obj.name,
+							'service': service_item, 'rate': practitioner_charge,
+							'income_account': income_account})
+
+			encounters = frappe.get_list("Patient Encounter", {'patient': patient.name, 'invoiced': False, 'docstatus': 1})
+			if encounters:
+				for encounter in encounters:
+					encounter_obj = frappe.get_doc("Patient Encounter", encounter['name'])
+					if not encounter_obj.appointment:
+						practitioner_charge = 0
+						income_account = None
+						service_item = None
+						if encounter_obj.practitioner:
+							service_item, practitioner_charge = service_item_and_practitioner_charge(encounter_obj)
+							income_account = get_income_account(encounter_obj.practitioner, encounter_obj.company)
+
+						item_to_invoice.append({'reference_type': 'Patient Encounter', 'reference_name': encounter_obj.name,
+						'service': service_item, 'rate': practitioner_charge,
+						'income_account': income_account})
+
+			lab_tests = frappe.get_list("Lab Test", {'patient': patient.name, 'invoiced': False})
+			if lab_tests:
+				for lab_test in lab_tests:
+					lab_test_obj = frappe.get_doc("Lab Test", lab_test['name'])
+					if frappe.db.get_value("Lab Test Template", lab_test_obj.template, "is_billable") == 1:
+						item_to_invoice.append({'reference_type': 'Lab Test', 'reference_name': lab_test_obj.name,
+						'service': frappe.db.get_value("Lab Test Template", lab_test_obj.template, "item")})
+
+			procedures = frappe.get_list("Clinical Procedure", {'patient': patient.name, 'invoiced': False})
+			if procedures:
+				for procedure in procedures:
+					procedure_obj = frappe.get_doc("Clinical Procedure", procedure['name'])
+					if not procedure_obj.appointment:
+						if procedure_obj.procedure_template and (frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "is_billable") == 1):
+							item_to_invoice.append({'reference_type': 'Clinical Procedure', 'reference_name': procedure_obj.name,
+							'service': frappe.db.get_value("Clinical Procedure Template", procedure_obj.procedure_template, "item")})
+
+			procedures = frappe.get_list("Clinical Procedure",
+			{'patient': patient.name, 'invoice_separately_as_consumables': True, 'consumption_invoiced': False,
+			'consume_stock': True, 'status': 'Completed'})
+			if procedures:
+				service_item = get_healthcare_service_item('clinical_procedure_consumable_item')
+				if not service_item:
+					msg = _(("Please Configure {0} in ").format("Clinical Procedure Consumable Item") \
+						+ """<b><a href="#Form/Healthcare Settings">Healthcare Settings</a></b>""")
+					frappe.throw(msg)
+				for procedure in procedures:
+					procedure_obj = frappe.get_doc("Clinical Procedure", procedure['name'])
+					item_to_invoice.append({'reference_type': 'Clinical Procedure', 'reference_name': procedure_obj.name,
+					'service': service_item, 'rate': procedure_obj.consumable_total_amount, 'description': procedure_obj.consumption_details})
+
+			inpatient_services = frappe.db.sql("""select io.name, io.parent from `tabInpatient Record` ip,
+			`tabInpatient Occupancy` io where ip.patient=%s and io.parent=ip.name and
+			io.left=1 and io.invoiced=0""", (patient.name))
+			if inpatient_services:
+				for inpatient_service in inpatient_services:
+					inpatient_occupancy = frappe.get_doc("Inpatient Occupancy", inpatient_service[0])
+					service_unit_type = frappe.get_doc("Healthcare Service Unit Type", frappe.db.get_value("Healthcare Service Unit", inpatient_occupancy.service_unit, "service_unit_type"))
+					if service_unit_type and service_unit_type.is_billable == 1:
+						hours_occupied = time_diff_in_hours(inpatient_occupancy.check_out, inpatient_occupancy.check_in)
+						qty = 0.5
+						if hours_occupied > 0:
+							actual_qty = hours_occupied / service_unit_type.no_of_hours
+							floor = math.floor(actual_qty)
+							decimal_part = actual_qty - floor
+							if decimal_part > 0.5:
+								qty = rounded(floor + 1, 1)
+							elif decimal_part < 0.5 and decimal_part > 0:
+								qty = rounded(floor + 0.5, 1)
+							if qty <= 0:
+								qty = 0.5
+						item_to_invoice.append({'reference_type': 'Inpatient Occupancy', 'reference_name': inpatient_occupancy.name,
+						'service': service_unit_type.item, 'qty': qty})
+
+			return item_to_invoice
+		else:
+			frappe.throw(_("The Patient {0} do not have customer refrence to invoice").format(patient.name))
