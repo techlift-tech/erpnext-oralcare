@@ -128,7 +128,7 @@ doc_events = {
 	},
 	"Patient": {
 		"after_insert": "erpnext_oralcare.patient.patient.send_referrer_sms",
-		"on_update": "erpnext_oralcare.patient.patient.save_family_name"
+		"on_update": "erpnext_oralcare.patient.patient.on_update",
 	}
 }
 
