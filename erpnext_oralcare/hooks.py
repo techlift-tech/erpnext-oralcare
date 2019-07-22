@@ -27,7 +27,8 @@ app_license = "MIT"
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 page_js = {
-	"medical_record": "public/js/medical_record_extend.js"
+	"medical_record": "public/js/medical_record_extend.js",
+	"query-report": "public/js/test.js"
 }
 # include js in doctype views
 doctype_js = {
