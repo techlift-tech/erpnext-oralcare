@@ -13,18 +13,29 @@ def send_referrer_sms(doc, method):
 		send_sms(numbers, message)
 
 def on_update(doc, method):
-	save_family_name(doc, method)
+	transfer_details_to_customer(doc, method)
 	add_customer_address(doc, method)
 
-def save_family_name(doc, method):
+def transfer_details_to_customer(doc, method):
 	family_name = doc.family_name
+	lead_name = doc.lead_name
 	customer = doc.customer
 
-	if family_name and customer:
+	if customer:
 		customer_doc = frappe.get_doc('Customer', customer)
 		if customer_doc:
-			customer_doc.family_name = family_name
-			customer_doc.save()
+			if family_name:
+				customer_doc.family_name = family_name
+				customer_doc.save()
+			if lead_name:
+				customer_doc.lead_name = lead_name
+				customer_doc.save()
+
+				lead_doc = frappe.get_doc('Lead', lead_name)
+
+				if lead_doc:
+					lead_doc.status = 'Converted'
+					lead_doc.save()
 
 def add_customer_address(doc, method):
 	customer = doc.customer

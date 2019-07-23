@@ -18,7 +18,7 @@ app_license = "MIT"
 # app_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
 
-# app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
+app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
@@ -27,7 +27,8 @@ app_license = "MIT"
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 page_js = {
-	"medical_record": "public/js/medical_record_extend.js"
+	"medical_record": "public/js/medical_record_extend.js",
+	"query-report": "public/js/test.js"
 }
 # include js in doctype views
 doctype_js = {
