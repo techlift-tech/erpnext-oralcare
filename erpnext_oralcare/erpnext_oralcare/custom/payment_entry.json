@@ -115,7 +115,7 @@
    "doctype_or_field": "DocField", 
    "field_name": "naming_series", 
    "idx": 0, 
-   "modified": "2019-07-25 09:19:54.526225", 
+   "modified": "2019-07-25 14:25:47.674345", 
    "modified_by": "Administrator", 
    "name": "Payment Entry-naming_series-options", 
    "owner": "Administrator", 
@@ -124,7 +124,7 @@
    "parenttype": null, 
    "property": "options", 
    "property_type": "Text", 
-   "value": "PAY.YY.MM.####\nREC.YY.MM.####\nINT.YY.MM.####"
+   "value": "REC.YY.MM.####\nPAY.YY.MM.####\nINT.YY.MM.####"
   }, 
   {
    "_assign": null, 
@@ -138,7 +138,7 @@
    "doctype_or_field": "DocField", 
    "field_name": "naming_series", 
    "idx": 0, 
-   "modified": "2019-07-25 09:19:54.489264", 
+   "modified": "2019-07-25 14:25:47.602284", 
    "modified_by": "Administrator", 
    "name": "Payment Entry-naming_series-default", 
    "owner": "Administrator", 
@@ -147,7 +147,7 @@
    "parenttype": null, 
    "property": "default", 
    "property_type": "Text", 
-   "value": "PAY.YY.MM.####"
+   "value": "REC.YY.MM.####"
   }, 
   {
    "_assign": null, 
