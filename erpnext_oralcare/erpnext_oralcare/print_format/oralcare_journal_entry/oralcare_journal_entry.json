@@ -1,0 +1,21 @@
+{
+ "align_labels_right": 0, 
+ "creation": "2019-07-29 18:55:08.333811", 
+ "custom_format": 0, 
+ "disabled": 0, 
+ "doc_type": "Journal Entry", 
+ "docstatus": 0, 
+ "doctype": "Print Format", 
+ "font": "Default", 
+ "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\", \"options\": \"<div class=\\\"print-heading\\\">\\t\\t\\t\\t<h2>Journal Entry<br><small>{{ doc.name }}</small>\\t\\t\\t\\t</h2></div>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"workflow_state\", \"label\": \"Workflow State\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"status\", \"label\": \"Status\"}, {\"print_hide\": 0, \"fieldname\": \"voucher_type\", \"label\": \"Entry Type\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"posting_date\", \"label\": \"Posting Date\"}, {\"print_hide\": 0, \"fieldname\": \"finance_book\", \"label\": \"Finance Book\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"visible_columns\": [{\"print_hide\": 0, \"fieldname\": \"account\", \"print_width\": \"250px\"}, {\"print_hide\": 0, \"fieldname\": \"party_type\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"party\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"debit_in_account_currency\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"credit_in_account_currency\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"reference_type\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"reference_name\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"reference_due_date\", \"print_width\": \"\"}, {\"print_hide\": 0, \"fieldname\": \"project\", \"print_width\": \"\"}], \"print_hide\": 0, \"fieldname\": \"accounts\", \"label\": \"Accounting Entries\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"get_balance\", \"label\": \"Make Difference Entry\"}, {\"print_hide\": 0, \"fieldname\": \"total_amount\", \"label\": \"Total Amount\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Reference\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"clearance_date\", \"label\": \"Clearance Date\"}, {\"print_hide\": 0, \"fieldname\": \"remark\", \"label\": \"Remark\"}, {\"print_hide\": 0, \"fieldname\": \"inter_company_journal_entry_reference\", \"label\": \"Inter Company Journal Entry Reference\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"due_date\", \"label\": \"Due Date\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Printing Settings\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"pay_to_recd_from\", \"label\": \"Pay To / Recd From\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"letter_head\", \"label\": \"Letter Head\"}, {\"fieldtype\": \"Section Break\", \"label\": \"More Information\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"mode_of_payment\", \"label\": \"Mode of Payment\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"stock_entry\", \"label\": \"Stock Entry\"}]", 
+ "idx": 0, 
+ "line_breaks": 0, 
+ "modified": "2019-07-29 18:56:15.308203", 
+ "modified_by": "Administrator", 
+ "module": "Erpnext Oralcare", 
+ "name": "Oralcare Journal Entry", 
+ "owner": "Administrator", 
+ "print_format_builder": 1, 
+ "show_section_headings": 0, 
+ "standard": "Yes"
+}
