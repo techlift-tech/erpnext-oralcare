@@ -10,7 +10,7 @@ import json
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
 def execute(filters=None):
-	columns, data = [], []
+	columns, data, columns_new = [], [], []
 
 	if not filters:
 		filters = {}
