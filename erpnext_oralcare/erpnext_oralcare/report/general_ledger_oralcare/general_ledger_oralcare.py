@@ -115,14 +115,15 @@ def get_result(filters, account_details):
 	result = get_result_as_list(data, filters)
 
 	for result_row in result:
-		if result_row.balance < 0:
-			result_row.drcr = "Cr"
-		if result_row.balance > 0:
-			result_row.drcr = "Dr"
-		if abs(result_row.balance - 0) <= 0.00001:
-			result_row.drcr = ""
+		if result_row.balance:
+			if result_row.balance < 0:
+				result_row.drcr = "Cr"
+			if result_row.balance > 0:
+				result_row.drcr = "Dr"
+			if abs(result_row.balance - 0) <= 0.00001:
+				result_row.drcr = ""
 
-		result_row.balance = abs(result_row.balance)
+			result_row.balance = abs(result_row.balance)
 
 	return result
 
