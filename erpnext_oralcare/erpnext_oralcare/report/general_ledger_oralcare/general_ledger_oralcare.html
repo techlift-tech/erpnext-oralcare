@@ -24,13 +24,14 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th style="width: 7%">{%= __("Date") %}</th>
+			<th style="width: 9%">{%= __("Date") %}</th>
 			<th style="width: 10%">{%= __("Ref") %}</th>
 			<th style="width: 10%">{%= __("Entry Type") %}</th>
-			<th style="width: 49%">{%= __("Party") %}</th>
+			<th style="width: 42%">{%= __("Party") %}</th>
 			<th style="width: 8%">{%= __("Debit") %}</th>
 			<th style="width: 8%">{%= __("Credit") %}</th>
 			<th style="width: 8%">{%= __("Balance") %}</th>
+			<th style="width: 5%">{%= __("Dr/Cr") %}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -68,9 +69,16 @@
 					{%= data[i].account && format_currency(data[i].credit, filters.presentation_currency) %}
 				</td>
 			{% } %}
-				<td style="text-align: right">
+			{% if(data[i].drcr == "Dr" || data[i].drcr == "") { %}
+				<td style="text-align: right; color: green">
 					{%= format_currency(data[i].balance, filters.presentation_currency) %}
 				</td>
+			{% } else { %}
+				<td style="text-align: right; color: red">
+					{%= format_currency(data[i].balance, filters.presentation_currency) %}
+				</td>
+			{% } %}
+				<td>{%= data[i].drcr %}</td>
 			</tr>
 		{% } %}
 	</tbody>

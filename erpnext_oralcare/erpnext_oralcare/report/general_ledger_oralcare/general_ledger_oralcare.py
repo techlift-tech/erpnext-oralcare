@@ -11,6 +11,8 @@ from erpnext.accounts.utils import get_account_currency
 from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
 from six import iteritems
 from collections import OrderedDict
+import math
+from remote_pdb import set_trace
 
 def execute(filters=None):
 	if not filters:
@@ -113,6 +115,16 @@ def get_result(filters, account_details):
 	data = get_data_with_opening_closing(filters, account_details, gl_entries)
 
 	result = get_result_as_list(data, filters)
+
+	for result_row in result:
+		if result_row.balance < 0:
+			result_row.drcr = "Cr"
+		if result_row.balance > 0:
+			result_row.drcr = "Dr"
+		if math.isclose(result_row.balance, 0, abs_tol=0.00001):
+			result_row.drcr = ""
+
+		result_row.balance = abs(result_row.balance)
 
 	return result
 
@@ -338,8 +350,8 @@ def get_result_as_list(data, filters):
 			balance, balance_in_account_currency = 0, 0
 
 		balance = get_balance(d, balance, 'debit', 'credit')
-		d['balance'] = balance
 
+		d['balance'] = balance
 		d['account_currency'] = filters.account_currency
 		d['bill_no'] = inv_details.get(d.get('against_voucher'), '')
 
@@ -399,6 +411,11 @@ def get_columns(filters):
 			"fieldname": "balance",
 			"fieldtype": "Float",
 			"width": 130
+		},
+		{
+			"label": _("Dr/Cr"),
+			"fieldname": "drcr",
+			"width": 50
 		}
 	]
 
