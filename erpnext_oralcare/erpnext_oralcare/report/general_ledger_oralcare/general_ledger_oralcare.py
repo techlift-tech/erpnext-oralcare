@@ -11,8 +11,6 @@ from erpnext.accounts.utils import get_account_currency
 from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
 from six import iteritems
 from collections import OrderedDict
-import math
-from remote_pdb import set_trace
 
 def execute(filters=None):
 	if not filters:
@@ -121,7 +119,7 @@ def get_result(filters, account_details):
 			result_row.drcr = "Cr"
 		if result_row.balance > 0:
 			result_row.drcr = "Dr"
-		if math.isclose(result_row.balance, 0, abs_tol=0.00001):
+		if abs(result_row.balance - 0) <= 0.00001:
 			result_row.drcr = ""
 
 		result_row.balance = abs(result_row.balance)
