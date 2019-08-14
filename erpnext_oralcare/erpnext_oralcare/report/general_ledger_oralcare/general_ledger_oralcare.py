@@ -11,7 +11,6 @@ from erpnext.accounts.utils import get_account_currency
 from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
 from six import iteritems
 from collections import OrderedDict
-from remote_pdb import set_trace
 
 def execute(filters=None):
 	if not filters:
