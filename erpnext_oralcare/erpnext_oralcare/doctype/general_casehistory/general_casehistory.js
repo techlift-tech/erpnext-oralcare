@@ -29,5 +29,4 @@ frappe.ui.form.on('General CaseHistory', {
 			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
 		}
 	}
-
 });

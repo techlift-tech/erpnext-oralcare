@@ -48,6 +48,11 @@ frappe.ui.form.on('Clinical Procedure', {
 			});
 		}
 	},
+	after_save: function(frm){
+		if(frm.doc.encounter){
+			frappe.set_route("Form", "Patient Encounter", frm.doc.encounter);
+		}
+	}
 });
 
 
