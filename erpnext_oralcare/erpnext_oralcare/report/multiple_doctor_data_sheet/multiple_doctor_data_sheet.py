@@ -48,7 +48,7 @@ def execute(filters=None):
 					prefix = prefix_json['title']
 					column_json = {
 						'title': prefix_json['title'] + " " + str(month_name) + " " + str(year),
-						'type': prefix_json['type']
+						'type': prefix_json['type'],
 					}
 					columns.append(column_json)
 

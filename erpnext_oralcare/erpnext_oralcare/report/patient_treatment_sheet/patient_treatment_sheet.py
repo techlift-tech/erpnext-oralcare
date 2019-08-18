@@ -26,17 +26,17 @@ def execute(filters=None):
 		sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
 
 	columns = [
-		'Sales Invoice:Link/Sales Invoice',
-		'Date:Date',
-		'Procedure:Link/Clinical Procedure',
-		'Proceure Name',
-		'Doctor:Link/Healthcare Practitioner',
-		'Doctor Name',
-		'Patient:Link/Patient',
-		'Patient Name',
-		'Quantity',
-		'Rate:Currency',
-		'Amount:Currency',
+		'Date:Date:78',
+		'Invoice:Link/Sales Invoice:80',
+		'Procedure:Link/Clinical Procedure:80',
+		'Proceure Name:200',
+		'Doctor::150',
+		'Patient:Link/Patient:90',
+		'Patient Name::150',
+		'Family Name::100',
+		'Qty:20',
+		'Rate:Currency:100',
+		'Amount:Currency:100',
 	]
 
 	items_list = []
@@ -86,17 +86,23 @@ def execute(filters=None):
 						patient_id = healthcare_doc.patient
 
 						doctor_name = ''
-						doctor_first_name = ''
+						doctor_full_name = ''
 						if practitioner:
 							doctor_name = practitioner
 							doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
 							if doctor.first_name:
-								doctor_first_name = doctor.first_name
+								doctor_full_name += doctor.first_name
+							if doctor.last_name:
+								doctor_full_name += " " + doctor.last_name
 
-						patient = frappe.get_doc('Patient', patient_id) 
+						patient = frappe.get_doc('Patient', patient_id)
 						patient_name = patient.patient_name
+						family_name = patient.family_name
 
-						array_to_append = [si_name.name, posting_date, healthcare_doc.name, template, doctor_name, doctor_first_name, patient_id, patient_name, qty, rate, amount]
+						if family_name == None:
+							family_name = 'N/A'
+
+						array_to_append = [posting_date, si_name.name, healthcare_doc.name, template, doctor_full_name, patient_id, patient_name, family_name, qty, rate, amount]
 					elif reference_dt == 'Procedure Prescription' or reference_dt == 'Lab Prescription':
 						pass
 					else:

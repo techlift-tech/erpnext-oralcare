@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.utils import flt
+from frappe.permissions import has_permission
 
 billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
@@ -19,17 +20,15 @@ def execute(filters=None):
 
 	columns, data = [], []
 
-	sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
+	sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]], ignore_permissions=True)
 
 	columns = [
-		'Invoice:Link/Sales Invoice:90',
 		'Date:Date:80',
-		'Procedure Name',
-		'Doctor Name',
 		'Patient Name::150',
-		'Value to Dr:Currency',
-		'Value to Company:Currency:130',
-		'Value to Company(%)'
+		'Doctor Name::150',
+		'Procedure Name',
+		'Amt Collected:Currency',
+		'My Share:Currency:130'
 	]
 
 	for si_name in sales_invoices:
@@ -51,44 +50,42 @@ def execute(filters=None):
 			reference_dn = item.reference_dn
 			healthcare_procedure = frappe.get_doc(reference_dt, reference_dn)
 			amount = item.amount
-			rate = item.rate
-			qty = item.qty
 			doctor_share = item.doctor_share
-			company_share = amount
 
 			if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
 
 				template = healthcare_procedure.procedure_template if (reference_dt == 'Clinical Procedure') else 'Patient Encounter'
-				practitioner = healthcare_procedure.practitioner
 				patient_id = healthcare_procedure.patient
+				practitioner = healthcare_procedure.practitioner
 
 				if doctor_filter:
 					if practitioner != doctor_filter:
 						continue
 
 				if doctor_share:
-					company_share = flt(amount) - flt(doctor_share)
 					doctor_share = flt(doctor_share)
 				else:
 					doctor_share = 0
 
-				company_percent = (company_share/amount)*100
-
-				doctor_name = ''
 				doctor_name = ''
 				if practitioner:
-					doctor_name = practitioner
-					doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
-					if doctor.first_name:
-						doctor_name = doctor.first_name
+					doctor_list = frappe.get_list('Healthcare Practitioner', fields=['first_name', 'last_name'], filters={'name': practitioner})
 
-					if doctor.last_name:
-						doctor_name += " " + doctor.last_name
+					if len(doctor_list) == 0 or len(doctor_list) > 1:
+						continue
+
+					doctor_doc = doctor_list[0]
+
+					if doctor_doc.first_name:
+						doctor_name = doctor_doc.first_name
+
+						if doctor_doc.last_name:
+							doctor_name += " " + doctor_doc.last_name
 
 				patient = frappe.get_doc('Patient', patient_id) 
 				patient_name = patient.patient_name
 
-				array_to_append = [si_name.name, posting_date, template, doctor_name, patient_name, doctor_share, company_share, company_percent]
+				array_to_append = [posting_date, patient_name, doctor_name, template, amount, doctor_share]
 
 				data.append(array_to_append)
 

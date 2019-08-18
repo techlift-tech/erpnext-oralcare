@@ -16,12 +16,12 @@ def execute(filters=None):
 	doctor_list = frappe.get_list('Healthcare Practitioner', filters = [['creation', ">=", from_date], ['creation', "<=", to_date]])
 
 	columns = [
-		'Registration Date: Date',
-		'Doctor:Link/Healthcare Practitioner',
-		'Doctor Name',
-		'Department',
-		'Designation',
-		'Mobile'
+		'Registration Date: Date:150',
+		'Doctor:Link/Healthcare Practitioner:150',
+		'Doctor Name::150',
+		'Department::250',
+		'Designation:Link/Designation:150',
+		'Mobile::150'
 	]
 
 	for doctor_id in doctor_list:
@@ -30,8 +30,8 @@ def execute(filters=None):
 		first_name = doctor.first_name
 		last_name = doctor.last_name
 		mobile = doctor.mobile_phone
-		department = doctor.department
 		designation = doctor.designation
+		department = doctor.department
 
 		doctor_name = ''
 
@@ -39,7 +39,12 @@ def execute(filters=None):
 			doctor_name += first_name
 
 		if last_name:
-			doctor_name += last_name
+			doctor_name += " " + last_name
+
+		if designation == None:
+			designation = 'N/A'
+
+		print(type(designation))
 
 		data.append([registration_date, doctor.name, doctor_name, department, designation, mobile])
 

@@ -16,13 +16,13 @@ def execute(filters=None):
 	patient_list = frappe.get_list('Patient', filters = [['creation', ">=", from_date], ['creation', "<=", to_date]])
 
 	columns = [
-		'Registration Date: Date',
-		'Patient:Link/Patient',
-		'Patient Name',
-		'Blood Group',
-		'Sex',
-		'Mobile',
-		'Email'
+		'Registration Date: Date:150',
+		'Patient:Link/Patient:90',
+		'Patient Name::150',
+		'Blood Group::120',
+		'Sex::60',
+		'Mobile::100',
+		'Email::300'
 	]
 
 	for patient_id in patient_list:
