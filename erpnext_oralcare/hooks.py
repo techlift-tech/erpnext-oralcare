@@ -19,7 +19,7 @@ app_license = "MIT"
 # app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
 
 app_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"
-
+app_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_oralcare/css/erpnext_oralcare.css"
 # web_include_js = "/assets/erpnext_oralcare/js/erpnext_oralcare.js"

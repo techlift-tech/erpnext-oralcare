@@ -12,7 +12,7 @@ def get_events(start, end, filters=None):
 
 		if patient:
 			patient_object = frappe.get_doc('Patient', patient)
-			if patient_object:
+			if patient_object and patient_object.mobile:
 				mobile = patient_object.mobile
 
 		start_date = appointment.appointment_date
@@ -22,6 +22,7 @@ def get_events(start, end, filters=None):
 		appointment.end = appointment.start + datetime.timedelta(minutes = appointment.duration)
 		appointment.color = 'blue'
 		appointment.allDay = 0
+
 		appointment.description = "Dr: " + appointment.practitioner + " Patient Phone:" + mobile
 
 	return appointments

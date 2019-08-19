@@ -1,0 +1,48 @@
+.erpnext-oralcare-print-heading {
+	font-size: 26px;
+}
+.erpnext-oralcare-print-subheading {
+	font-size: 16px;
+}
+.erpnext-oralcare-print-info-table{
+	font-size: 12px;
+	border-collapse: collapse;
+}
+.erpnext-oralcare-print-info-table tr td:first-child {
+	font-weight: bold;
+}
+.erpnext-oralcare-print-info-table tr td {
+	border-top: 1px solid #d1d8dd;   
+	border-bottom: 1px solid #d1d8dd;   
+}
+#erpnext-oralcare-print-info-table tr td {
+	border-top: 1px solid #d1d8dd;   
+	border-bottom: 1px solid #d1d8dd;   
+}
+
+.erpnext-oralcare-print-data-table {
+	font-size: 12px;
+	border-collapse: collapse;
+}
+.erpnext-oralcare-print-data-table td{
+	border-top: 1px solid #d1d8dd;   
+}.erpnext-oralcare-print-data-table tr td{
+	border-top: 1px solid #d1d8dd;   
+	border-bottom: 1px solid #d1d8dd;   
+}
+.erpnext-oralcare-print-data-table th {
+	background: none !important;
+	border: 1px solid #999;
+}
+.erpnext-oralcare-print-inner-headings {
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.erpnext-oralcare-print-list {
+	font-size: 12px;
+	text-transform: capitalize;
+}
+.print-format th {
+	background: none !important;
+}
