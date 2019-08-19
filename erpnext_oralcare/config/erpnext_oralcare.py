@@ -48,6 +48,12 @@ def get_data():
 				{
 					"type": "report",
 					"is_query_report": True,
+					"name": "Doctor Financial Report",
+					"label": _("Doctor Financial Report")
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
 					"name": "Doctor Registration",
 					"label": _("Doctor Registration")
 				},
