@@ -136,7 +136,13 @@ doc_events = {
 
 # Scheduled Tasks
 # ---------------
-
+scheduler_events = {
+	"cron": {
+		"30 6 * * *": {
+			"erpnext_oralcare.utils.send_daily_sales_sms"
+		}
+	}
+}
 # scheduler_events = {
 # 	"all": [
 # 		"erpnext_oralcare.tasks.all"
