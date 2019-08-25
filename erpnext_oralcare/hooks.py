@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from . import __version__ as app_version
 
@@ -138,9 +138,9 @@ doc_events = {
 # ---------------
 scheduler_events = {
 	"cron": {
-		"30 6 * * *": {
+		"0 23 * * *": [
 			"erpnext_oralcare.utils.send_daily_sales_sms"
-		}
+		]
 	}
 }
 # scheduler_events = {
