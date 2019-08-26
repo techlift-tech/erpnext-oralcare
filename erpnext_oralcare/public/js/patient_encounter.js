@@ -52,6 +52,13 @@ frappe.ui.form.on("Patient Encounter", {
 	refresh: function(frm){
 		frm.dashboard.links_area.find('.btn-new').each(function(){
 			$(this).removeClass('hidden');
+		});
+		frm.set_query("drug_code", "drug_prescription", function(){
+			return {
+				filters: {
+					item_group: 'Drug'
+				}
+			}	
 		})
 	},
 	onload_post_render: function(frm){
