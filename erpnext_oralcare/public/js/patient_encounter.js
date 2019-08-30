@@ -29,6 +29,26 @@ frappe.ui.form.on("Patient Encounter", "onload", function(frm){
 
 })
 
+frappe.ui.form.on("Procedure Prescription", "procedure", function(frm, cdt, cdn) {
+	var row = frappe.get_doc(cdt, cdn);
+	frappe.call({
+		"method": "frappe.client.get_value",
+		"args": {
+			"doctype": "Clinical Procedure Template",
+			"filters": {
+				"name": row.procedure
+			},
+			"fieldname": "rate",
+		},
+		"callback": function(response) {
+			var r = response.message;
+			if (r && r.rate) {
+				frappe.model.set_value(cdt, cdn, "price", r.rate);
+			}
+		}
+	})
+})
+
 frappe.ui.form.on("Patient Encounter", {
 	setup: function(frm) {
 		frm.dashboard.init_data()
