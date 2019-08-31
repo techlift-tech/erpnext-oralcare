@@ -25,7 +25,10 @@ frappe.views.calendar['Patient Appointment'] = {
 					title: 'More Info'
 				},
 				position: {
-					target: 'mouse'
+					my: 'top center',
+					at: 'bottom center',
+					target: element
+					//target: 'mouse'
 				},
 				style: {
 					classes: 'qtip-bootstrap qtip-green'
