@@ -17,7 +17,21 @@ frappe.views.calendar['Patient Appointment'] = {
 		hiddenDays: [0],
 		noEventsMessage: "No Appointments to Show",
 		selectable: false,
-		nowIndicator: false
+		nowIndicator: false,
+		eventRender: function(event, element) {
+			element.qtip({
+				content: {
+					text: event.description,
+					title: 'More Info'
+				},
+				position: {
+					target: 'mouse'
+				},
+				style: {
+					classes: 'qtip-bootstrap qtip-green'
+				}
+			});
+		}
 	},
 	field_map: {
 		"start": "start",

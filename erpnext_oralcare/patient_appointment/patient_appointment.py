@@ -23,7 +23,7 @@ def get_events(start, end, filters=None):
 		appointment.color = 'blue'
 		appointment.allDay = 0
 
-		appointment.description = "Dr: " + appointment.practitioner + " Patient Phone:" + mobile
+		appointment.description = '<p style="font-size:20"><i class="fa fa-user-md" aria-hidden="true"></i> %s</p><p style="font-size:20"><i class="fa fa-phone" aria-hidden="true"></i> %s</p>'%(appointment.practitioner, mobile)
 
 	return appointments
 

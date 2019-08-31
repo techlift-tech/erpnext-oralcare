@@ -1,8 +1,10 @@
 {
 	"erpnext_oralcare/js/erpnext_oralcare.js": [
-		"public/js/print.js"
+		"public/js/print.js",
+		"public/js/qtip.min.js"
 	],
 	"erpnext_oralcare/css/erpnext_oralcare.css": [
-		"public/css/print.css"
+		"public/css/print.css",
+		"public/css/qtip.min.css"
 	]
 }
