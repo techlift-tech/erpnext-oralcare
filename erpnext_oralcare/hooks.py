@@ -122,9 +122,6 @@ doc_events = {
 	"Conservative Dentistry and Endondontics": {
 		"after_insert": "erpnext_oralcare.case_history.insert_case_history_in_medical_record"
 	},
-	"Patient Appointment": {
-		"after_insert": "erpnext_oralcare.patient_appointment.patient_appointment.send_doctors_sms"
-	},
 	"Patient Encounter": {
 		"before_submit": "erpnext_oralcare.patient_encounter.patient_encounter_extend.submit_case_histories"
 	},
