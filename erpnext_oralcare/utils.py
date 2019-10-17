@@ -81,3 +81,36 @@ def send_daily_sales_sms():
 		send_sms(number_arrays, message)
 	except e:
 		pass
+
+def send_daily_appointment_summary():
+    todays_date = today()
+    tomorrows_date = frappe.utils.add_days(todays_date, 1)
+    appointments = frappe.get_all('Patient Appointment', fields=['name', 'practitioner', 'appointment_time', 'patient_name'], filters={'appointment_date': tomorrows_date}, order_by='appointment_time')
+
+    doctor_wise_apppointment = {}
+    for appointment in appointments:
+        doctor = appointment.practitioner
+
+        if doctor not in doctor_wise_apppointment:
+            doctor_wise_apppointment[doctor] = []
+
+        doctor_wise_apppointment[doctor].append(appointment)
+
+    from frappe.core.doctype.sms_settings.sms_settings import send_sms
+
+    for doctor in doctor_wise_apppointment:
+        doctor_object = frappe.get_doc('Healthcare Practitioner', doctor)
+        if doctor_object:
+            mobile_number = doctor_object.mobile_phone
+            if mobile_number:
+                summary_message = '''Your Appointments for Tomorrow {0} \n'''.format(frappe.utils.formatdate(tomorrows_date, 'dd-MM-YY'))
+                for appointment in doctor_wise_apppointment[doctor]:
+                    summary_message += '''{0}-{1}\n'''.format(appointment.appointment_time, appointment.patient_name)
+
+                if summary_message != '':
+                    summary_message = summary_message.replace('`', '')
+                    summary_message = summary_message.replace('@', '')
+                    summary_message = summary_message.replace('&', '')
+                    summary_message = summary_message.replace('#', '')
+                    send_sms([mobile_number], summary_message)
+

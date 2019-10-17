@@ -139,7 +139,8 @@ doc_events = {
 scheduler_events = {
 	"cron": {
 		"0 23 * * *": [
-			"erpnext_oralcare.utils.send_daily_sales_sms"
+			"erpnext_oralcare.utils.send_daily_sales_sms",
+			"erpnext_oralcare.utils.send_daily_appointment_summary"
 		]
 	}
 }
