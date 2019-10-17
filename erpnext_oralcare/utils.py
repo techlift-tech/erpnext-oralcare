@@ -112,5 +112,6 @@ def send_daily_appointment_summary():
                     summary_message = summary_message.replace('@', '')
                     summary_message = summary_message.replace('&', '')
                     summary_message = summary_message.replace('#', '')
-                    send_sms([mobile_number], summary_message)
+                    print(summary_message)
+                    #send_sms([mobile_number], summary_message)
 
