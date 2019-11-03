@@ -28,7 +28,9 @@ def execute(filters=None):
 		'Doctor Name::150',
 		'Procedure Name',
 		'Amt Collected:Currency',
-		'My Share:Currency:130'
+		'Doctor Share:Currency:130',
+		'Admin Fees:Currency:130',
+		'Consumable Cost:Currency:130'
 	]
 
 	for si_name in sales_invoices:
@@ -51,6 +53,8 @@ def execute(filters=None):
 			healthcare_procedure = frappe.get_doc(reference_dt, reference_dn)
 			amount = item.amount
 			doctor_share = item.doctor_share
+			admin_fees = item.admin_fees
+			consumable_cost = item.consumable_cost
 
 			if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
 
@@ -67,6 +71,16 @@ def execute(filters=None):
 				else:
 					doctor_share = 0
 
+				if admin_fees:
+					admin_fees = flt(admin_fees)
+				else:
+					admin_fees = 0
+
+				if consumable_cost:
+					consumable_cost = flt(consumable_cost)
+				else:
+					consumable_cost = 0
+
 				doctor_name = ''
 				if practitioner:
 					doctor_list = frappe.get_list('Healthcare Practitioner', fields=['first_name', 'last_name'], filters={'name': practitioner})
@@ -82,10 +96,10 @@ def execute(filters=None):
 						if doctor_doc.last_name:
 							doctor_name += " " + doctor_doc.last_name
 
-				patient = frappe.get_doc('Patient', patient_id) 
+				patient = frappe.get_doc('Patient', patient_id)
 				patient_name = patient.patient_name
 
-				array_to_append = [posting_date, patient_name, doctor_name, template, amount, doctor_share]
+				array_to_append = [posting_date, patient_name, doctor_name, template, amount, doctor_share, admin_fees, consumable_cost]
 
 				data.append(array_to_append)
 
