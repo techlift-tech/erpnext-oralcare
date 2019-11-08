@@ -1,6 +1,7 @@
 import frappe
 from frappe.core.doctype.sms_settings.sms_settings import send_sms
 
+
 def send_referrer_sms(doc, method):
 	referrer_name = doc.referrer_name
 	referrer_phone_no = doc.referrer_phone_no
@@ -12,14 +13,17 @@ def send_referrer_sms(doc, method):
 		numbers = [referrer_phone_no]
 		send_sms(numbers, message)
 
+
 def on_update(doc, method):
 	transfer_details_to_customer(doc, method)
 	add_customer_address(doc, method)
+	
 
 def transfer_details_to_customer(doc, method):
 	family_name = doc.family_name
 	lead_name = doc.lead_name
 	customer = doc.customer
+	credit_allowed = doc.credit_allowed
 
 	if customer:
 		customer_doc = frappe.get_doc('Customer', customer)
@@ -27,6 +31,9 @@ def transfer_details_to_customer(doc, method):
 			if family_name:
 				customer_doc.family_name = family_name
 				customer_doc.save()
+			if credit_allowed:
+				customer_doc.credit_allowed = credit_allowed
+				customer_doc.save()	
 			if lead_name:
 				customer_doc.lead_name = lead_name
 				customer_doc.save()
@@ -36,6 +43,7 @@ def transfer_details_to_customer(doc, method):
 				if lead_doc:
 					lead_doc.status = 'Converted'
 					lead_doc.save()
+
 
 def add_customer_address(doc, method):
 	customer = doc.customer
@@ -81,3 +89,6 @@ def add_customer_address(doc, method):
 			address.country = country
 
 			address.save()
+
+
+
