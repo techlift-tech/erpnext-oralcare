@@ -26,13 +26,13 @@ def get_columns(filters=None):
 			"width": 150,
 			"options": "Customer"
 		},
-		# {
-		# 	"label": "Doctor Name",
-		# 	"fieldtype": "Link",
-		# 	"fieldname": "practitioner",
-		# 	"width": 250,
-		# 	"options": "Healthcare Practitioner"
-		# },
+		{
+			"label": "Doctor Name",
+			"fieldtype": "Link",
+			"fieldname": "practitioner",
+			"width": 250,
+			"options": "Healthcare Practitioner"
+		},
 		{
 			"label": "Procedure Name",
 			"fieldtype": "Data",
@@ -71,20 +71,25 @@ def get_columns(filters=None):
 		
 	]
 
-
+		
 def prepare_data(filters):
 	query = """
 	SELECT 
-		si.posting_date,
-		si.customer_name,
-		si_item.item_name,
-		si_item.amount,
-		si_item.doctor_share,
-		si_item.admin_fees,
-		si_item.consumable_cost,
-	FROM`tabSales Invoice Item` as si_item INNER JOIN `tabSales Invoice` as si 
-		on si_item.parent = si.name;
-	
-	data = frappe.db.sql(query)
+		si.name,
+		si_item.parent,
+		si.posting_date as "posting_date",
+		si.customer_name as "customer_name",
+		cp.practitioner as "practitioner",
+		si_item.item_name as "item_name",
+		si_item.amount as amount,
+		si_item.doctor_share as "doctor_share",
+		si_item.admin_fees as "admin_fees",
+		si_item.consumable_cost as "consumable_cost"
+	FROM`tabSales Invoice Item` as si_item
+	 INNER JOIN `tabSales Invoice` as si on si_item.parent = si.name
+	 LEFT JOIN `tabClinical Procedure` as cp on si_item.reference_dn=cp.name
+		;"""
+	# -- print(query)
+	data = frappe.db.sql(query,as_dict=True)
 	
 	return data
