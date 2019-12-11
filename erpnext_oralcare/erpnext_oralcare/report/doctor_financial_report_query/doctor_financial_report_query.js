@@ -2,12 +2,13 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Doctor Financial Report Script"] = {
+frappe.query_reports["Doctor Financial report Query"] = {
 	"filters": [
-		{
-			fieldname: "practitioner",
-			label: __("Doctor"),
-			fieldtype: "Data"
+		,{
+			"fieldname":"practitioner",
+			"label": __("Doctor"),
+			"fieldtype":"Link",
+			"options":"Healthcare Practitioner"
 		},
 		{
 			fieldname:"start_date",
@@ -21,6 +22,7 @@ frappe.query_reports["Doctor Financial Report Script"] = {
 			fieldtype: "Date",
 			width: "80"
 		}
+
 
 	]
 }
