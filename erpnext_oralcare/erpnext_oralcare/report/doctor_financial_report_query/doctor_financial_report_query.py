@@ -81,7 +81,13 @@ def prepare_data(filters):
 		si.customer_name as "customer_name",
 		cp.practitioner as "practitioner",
 		si_item.item_name as "item_name",
+<<<<<<< Updated upstream:erpnext_oralcare/erpnext_oralcare/report/doctor_financial_report_query/doctor_financial_report_query.py
 		si_item.amount as amount,
+=======
+		si_item.amount as "amount",
+		si_item.reference_dt as "reference_dt",
+		si_item.reference_dn as "reference_dn",
+>>>>>>> Stashed changes:erpnext_oralcare/erpnext_oralcare/report/doctor_financial_report_script/doctor_financial_report_script.py
 		si_item.doctor_share as "doctor_share",
 		si_item.admin_fees as "admin_fees",
 		si_item.consumable_cost as "consumable_cost"
