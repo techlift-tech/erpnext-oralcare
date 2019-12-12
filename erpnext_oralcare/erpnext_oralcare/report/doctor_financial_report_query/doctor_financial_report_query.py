@@ -94,30 +94,30 @@ def get_columns(filters=None):
 
 		
 def prepare_data(filters):
-	cond = cond2 = ""
+	cond = ""
 	if filters.practitioner:
-		cond = "AND practitioner= '{0}'".format(filters.get('practitioner')) 
-	if filters.start_date and filters.end_date:
-		cond2 = "AND si.posting_date BETWEEN '{0}' AND '{1}'".format(filters.start_date, filters.end_date)
+		cond = "practitioner= '{0}'".format(filters.get('practitioner')) 
+	# # if filters.start_date and filters.end_date:
+	# # 	cond2 = "AND si.posting_date BETWEEN '{0}' AND '{1}'".format(filters.start_date, filters.end_date)
 	query = """
-	SELECT 
-		si.name as "name",
-		si_item.parent,
-		DATE_FORMAT(si.posting_date,'%m-%d-%Y') as "posting_date",
-		si.customer_name as "customer_name",
-		IF(si_item.reference_dt="Clinical Procedure",(select practitioner from `tabClinical Procedure` where name=si_item.reference_dn {0}),(select practitioner from `tabPatient Appointment` where name=si_item.reference_dn {0})) as "practitioner",
-		si_item.item_name as "item_name",
-		si_item.amount as "amount",
-		si_item.reference_dt as "reference_dt",
-		si_item.reference_dn as "reference_dn",
-		si_item.doctor_share as "doctor_share",
-		si_item.admin_fees as "admin_fees",
-		si_item.consumable_cost as "consumable_cost"
-	FROM`tabSales Invoice Item` as si_item
-	 INNER JOIN `tabSales Invoice` as si on si_item.parent = si.name
-	 LEFT JOIN  `tabPatient Appointment` as ap on si_item.reference_dn=ap.name
-	 LEFT JOIN `tabClinical Procedure` as cp on si_item.reference_dn=cp.name where (si_item.reference_dt="Clinical Procedure" OR si_item.reference_dt="Patient Appointment") {1}
-		;""".format(cond,cond2)
+	 select
+	  si.name as "name",
+	  DATE_FORMAT(si.posting_date,'%m-%d-%Y') as "posting_date",
+	  si.customer_name as "customer_name",
+	  case si_item.reference_dt when "Clinical Procedure"
+	  							then (select practitioner from `tabClinical Procedure` where name = si_item.reference_dn where {0})
+	  							when "Patient Appointment" 
+	  							then (select practitioner from `tabPatient Appointment` where name = si_item.reference_dn where {0}) 
+								else "other" END as "practitioner",
+	  si_item.item_name as "item_name",
+	  si_item.amount as "amount",
+	  si_item.doctor_share as "doctor_share",
+	  si_item.admin_fees as "admin_fees",
+	  si_item.consumable_cost as "consumable_cost",
+	  si_item.reference_dt as "reference_dt",
+	  si_item.reference_dn as "reference_dn"
+	   from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name 
+		;""".format(cond)
 	# -- print(query)
 	data = frappe.db.sql(query,as_dict=True)
 	
