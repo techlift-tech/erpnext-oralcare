@@ -116,7 +116,7 @@ def prepare_data(filters):
 	si_item.consumable_cost as "consumable_cost",
 	si_item.reference_dt as "reference_dt",
 	si_item.reference_dn as "reference_dn"
-	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {0} {1};""".format(cond,cond2)
+	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {0}{1};""".format(cond,cond2)
 
 	data = frappe.db.sql(query,as_dict=True)
 	
