@@ -11,18 +11,18 @@ frappe.query_reports["Doctor Financial report Query"] = {
 			"options":"Healthcare Practitioner",
 			"reqd":0
 		},
-		// {
-		// 	fieldname:"start_date",
-		// 	label: __("From Date"),
-		// 	fieldtype: "Date",
-		// 	width: "80"
-		// },
-		// {
-		// 	fieldname:"end_date",
-		// 	label: __("To Date"),
-		// 	fieldtype: "Date",
-		// 	width: "80"
-		// }
+		{
+			fieldname:"start_date",
+			label: __("From Date"),
+			fieldtype: "Date",
+			width: "80"
+		},
+		{
+			fieldname:"end_date",
+			label: __("To Date"),
+			fieldtype: "Date",
+			width: "80"
+		}
 
 
 	]
