@@ -94,11 +94,11 @@ def get_columns(filters=None):
 
 		
 def prepare_data(filters):
-	cond = cond2 ""
+	cond = cond2 = ""
 	if filters.practitioner:
 		cond = "having practitioner='{0}'".format(filters.get('practitioner'))
 	if filters.start_date and filters.end_date:
-		cond2 = "AND si.posting_date BETWEEN '{0}' AND '{1}'".format(filters.start_date, filters.end_date)	
+		cond2 = "where si.posting_date BETWEEN '{0}' AND '{1}'".format(filters.start_date, filters.end_date)	
 	query = """
 	select
 	si.name as "name",
@@ -116,8 +116,9 @@ def prepare_data(filters):
 	si_item.consumable_cost as "consumable_cost",
 	si_item.reference_dt as "reference_dt",
 	si_item.reference_dn as "reference_dn"
-	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {0}{1};""".format(cond,cond2)
+	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {1}{0};""".format(cond,cond2)
 
+	frappe.msgprint(query)
 	data = frappe.db.sql(query,as_dict=True)
 	
 	return data
