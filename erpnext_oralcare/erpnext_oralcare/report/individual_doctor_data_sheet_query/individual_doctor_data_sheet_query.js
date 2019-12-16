@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Doctor Financial report Query"] = {
+frappe.query_reports["Individual Doctor Data Sheet Query"] = {
 	"filters": [
 		{
 			"fieldname":"practitioner",
@@ -10,7 +10,7 @@ frappe.query_reports["Doctor Financial report Query"] = {
 			"fieldtype":"Link",
 			"options":"Healthcare Practitioner",
 			"reqd":0
-		},
+		 },
 		{
 			fieldname:"start_date",
 			label: __("From Date"),
@@ -23,7 +23,6 @@ frappe.query_reports["Doctor Financial report Query"] = {
 			fieldtype: "Date",
 			width: "80"
 		}
-
 
 	]
 }

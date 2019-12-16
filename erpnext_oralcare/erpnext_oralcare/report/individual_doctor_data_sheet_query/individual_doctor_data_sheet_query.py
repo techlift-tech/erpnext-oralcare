@@ -13,25 +13,18 @@ def execute(filters=None):
 def get_columns(filters=None):
 	return [
 		{
+			"label": "Name",
+			"fieldtype": "Link",
+			"fieldname": "name",
+			"width": 100,
+			"options": "Sales Invoice"
+		},
+		{
 			"label": "Date",
 			"fieldtype": "Data",
 			"fieldname": "posting_date",
 			"width": 180,
 			"options": ""
-		},
-		{
-			"label": "Patient Name",
-			"fieldtype": "Link",
-			"fieldname": "customer_name",
-			"width": 150,
-			"options": "Customer"
-		},
-		{
-			"label": "Doctor Name",
-			"fieldtype": "Link",
-			"fieldname": "practitioner",
-			"width": 250,
-			"options": "Healthcare Practitioner"
 		},
 		{
 			"label": "Procedure Name",
@@ -41,6 +34,20 @@ def get_columns(filters=None):
 			"options": ""
 		},
 		{
+			"label": "Doctor Name",
+			"fieldtype": "Link",
+			"fieldname": "practitioner",
+			"width": 250,
+			"options": "Healthcare Practitioner"
+		},
+		{
+			"label": "Patient Name",
+			"fieldtype": "Link",
+			"fieldname": "patient_name",
+			"width": 150,
+			"options": "Customer"
+		},
+		{
 			"label": "Amt Collected",
 			"fieldtype": "Currency",
 			"fieldname": "amount",
@@ -48,23 +55,16 @@ def get_columns(filters=None):
 			"options": ""
 		},
 		{
-			"label": "Doctor Share",
+			"label": "Value to Doctor",
 			"fieldtype": "Currency",
 			"fieldname": "doctor_share",
 			"width": 100,
 			"options": ""
 		},
 		{
-			"label": "Admin Fees",
+			"label": "Value to Company",
 			"fieldtype": "Currency",
-			"fieldname": "admin_fees",
-			"width": 100,
-			"options": ""
-		},
-		{
-			"label": "Consumable Cost",
-			"fieldtype": "Currency",
-			"fieldname": "consumable_cost",
+			"fieldname": "value_to_company",
 			"width": 100,
 			"options": ""
 		}
@@ -83,21 +83,18 @@ def prepare_data(filters):
 	select
 	si.name as "name",
 	DATE_FORMAT(si.posting_date,'%m-%d-%Y') as "posting_date",
-	si.customer_name as "customer_name",
-	case si_item.reference_dt when "Clinical Procedure"
-			then (select practitioner from `tabClinical Procedure` where name = si_item.reference_dn)
-			when "Patient Appointment" 
-			then (select practitioner from `tabPatient Appointment` where name = si_item.reference_dn) 
-			else "other" END as "practitioner",
 	si_item.item_name as "item_name",
-	si_item.amount as "amount",
-	si_item.doctor_share as "doctor_share",
-	si_item.admin_fees as "admin_fees",
-	si_item.consumable_cost as "consumable_cost",
-	si_item.reference_dt as "reference_dt",
-	si_item.reference_dn as "reference_dn"
-	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {1}{0};""".format(cond,cond2)
+	si.customer_name as "patient_name",
+	case si_item.reference_dt when "Clinical Procedure" 
+								then (select practitioner from `tabClinical Procedure` where name = si_item.reference_dn)
+								when "Patient Appointment" 
+								then (select practitioner from `tabPatient Appointment` where name = si_item.reference_dn)
+								 END as "practitioner",
+	ifnull(si_item.doctor_share,0) as "doctor_share",
+	si_item.amount as "amount",ifnull(si_item.amount-si_item.doctor_share,0) as "value_to_company" 
+	from `tabSales Invoice`as si inner JOIN `tabSales Invoice Item`as si_item on si.name=si_item.parent {1}{0} having practitioner is not null;""".format(cond,cond2)
 
+	frappe.msgprint(query)
 	data = frappe.db.sql(query,as_dict=True)
 	
 	return data
