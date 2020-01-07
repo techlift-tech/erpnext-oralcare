@@ -11,6 +11,13 @@ frappe.query_reports["Patient Treatment Sheet Custom"] = {
 			"options":"Healthcare Practitioner",
 			"reqd":0
 		 },
+		 {
+			"fieldname":"family_name",
+			"label": __("Family Name"),
+			"fieldtype":"Link",
+			"options":"Family",
+			"reqd":0
+		 },
 		{
 			fieldname:"start_date",
 			label: __("From Date"),
