@@ -54,4 +54,22 @@ var get_healthcare_services_to_invoice = function(frm) {
 	dialog.show();
 };
 
+frappe.ui.form.on("Sales Invoice", {
+	customer: function(frm) {
+        console.log('hi')
+        get_membership_card_and_show(frm)
+	}
+});
 
+async function get_membership_card_and_show(frm){
+    frm.doc.membership_card = ""
+    frm.refresh()
+    var customer = frm.doc.customer
+    var membership_card_allotment = await frappe.db.get_list('Membership Allotment', {filters: {'primary_member': customer}, fields:['name', 'membership_card']})
+    if(membership_card_allotment && membership_card_allotment.length == 1){
+        var membership_card = membership_card_allotment[0].membership_card
+        var membership_card_object = await frappe.db.get_doc('Membership Card', membership_card)
+        frm.doc.membership_card = membership_card_object.card_name
+        frm.refresh()
+    }
+}
