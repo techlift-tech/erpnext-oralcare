@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Multiple Doctor Data Sheet Custom"] = {
+frappe.query_reports["Individual Doctor Data Sheet Old"] = {
 	"filters": [
 		{
 			"fieldname":"date_range",
@@ -10,6 +10,11 @@ frappe.query_reports["Multiple Doctor Data Sheet Custom"] = {
 			"fieldtype": "DateRange",
 			"default": [frappe.datetime.add_months(frappe.datetime.get_today(),-1), frappe.datetime.get_today()],
 			"reqd": 1
+		},{
+			"fieldname":"doctor",
+			"label": __("Doctor"),
+			"fieldtype":"Link",
+			"options":"Healthcare Practitioner"
 		}
 	]
 }

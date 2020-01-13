@@ -23,8 +23,7 @@ def get_columns(filters=None):
 			"label": "Date",
 			"fieldtype": "Data",
 			"fieldname": "posting_date",
-			"width": 180,
-			"options": ""
+			"width": 180
 		},
 		{
 			"label": "Procedure",
@@ -37,8 +36,7 @@ def get_columns(filters=None):
 			"label": "Procedure Name",
 			"fieldtype": "Data",
 			"fieldname": "item_name",
-			"width": 200,
-			"options": ""
+			"width": 200
 		},
 		{
 			"label": "Doctor Name",
@@ -65,43 +63,37 @@ def get_columns(filters=None):
 			"label": "Family Name",
 			"fieldtype": "data",
 			"fieldname": "family_name",
-			"width": 150,
-			"options": ""
+			"width": 150
 		},
 		{
 			"label": "Qty",
 			"fieldtype": "data",
 			"fieldname": "qty",
-			"width": 150,
-			"options": ""
+			"width": 150
 		},
 		{
 			"label": "Rate",
 			"fieldtype": "Currency",
 			"fieldname": "rate",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Amt Collected",
 			"fieldtype": "Currency",
 			"fieldname": "amount",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Total Taxes",
 			"fieldtype": "Currency",
 			"fieldname": "total_taxes",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Total",
 			"fieldtype": "Currency",
 			"fieldname": "total",
-			"width": 100,
-			"options": ""
+			"width": 100
 		}
 		
 		
@@ -135,7 +127,7 @@ def prepare_data(filters):
 	si_item.qty as "qty",
 	ifnull(si.total_taxes_and_charges,0) as "total_taxes",
 	si.grand_total as "total"
-	from `tabSales Invoice`as si inner JOIN `tabSales Invoice Item`as si_item on si.name=si_item.parent left join `tabPatient`as pat on si.patient_name=pat.patient_name having practitioner is not null {1}{0};""".format(cond,cond2)
+	from `tabSales Invoice`as si inner JOIN `tabSales Invoice Item`as si_item on si.name=si_item.parent left join `tabPatient`as pat on si.patient_name=pat.patient_name and si.docstatus=1 having practitioner is not null {1}{0};""".format(cond,cond2)
 
 	frappe.msgprint(query)
 	data = frappe.db.sql(query,as_dict=True)

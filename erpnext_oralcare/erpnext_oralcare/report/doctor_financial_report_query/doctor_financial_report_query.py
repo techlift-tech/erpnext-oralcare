@@ -16,8 +16,7 @@ def get_columns(filters=None):
 			"label": "Date",
 			"fieldtype": "Data",
 			"fieldname": "posting_date",
-			"width": 180,
-			"options": ""
+			"width": 180
 		},
 		{
 			"label": "Patient Name",
@@ -37,42 +36,33 @@ def get_columns(filters=None):
 			"label": "Procedure Name",
 			"fieldtype": "Data",
 			"fieldname": "item_name",
-			"width": 200,
-			"options": ""
+			"width": 200
 		},
 		{
 			"label": "Amt Collected",
 			"fieldtype": "Currency",
 			"fieldname": "amount",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Doctor Share",
 			"fieldtype": "Currency",
 			"fieldname": "doctor_share",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Admin Fees",
 			"fieldtype": "Currency",
 			"fieldname": "admin_fees",
-			"width": 100,
-			"options": ""
+			"width": 100
 		},
 		{
 			"label": "Consumable Cost",
 			"fieldtype": "Currency",
 			"fieldname": "consumable_cost",
-			"width": 100,
-			"options": ""
-		}
-		
-		
-	]
-
-		
+			"width": 100
+		}				
+	]		
 def prepare_data(filters):
 	cond = cond2 = ""
 	if filters.practitioner:
@@ -82,7 +72,7 @@ def prepare_data(filters):
 	query = """
 	select
 	si.name as "name",
-	DATE_FORMAT(si.posting_date,'%m-%d-%Y') as "posting_date",
+	DATE_FORMAT(si.posting_date,'%d-%m-%Y') as "posting_date",
 	si.customer_name as "customer_name",
 	case si_item.reference_dt when "Clinical Procedure"
 			then (select practitioner from `tabClinical Procedure` where name = si_item.reference_dn)
@@ -96,7 +86,7 @@ def prepare_data(filters):
 	si_item.consumable_cost as "consumable_cost",
 	si_item.reference_dt as "reference_dt",
 	si_item.reference_dn as "reference_dn"
-	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name {1}{0};""".format(cond,cond2)
+	from `tabSales Invoice Item` as si_item LEFT JOIN `tabSales Invoice` as si on si_item.parent = si.name and si.docstatus=1 {1}{0};""".format(cond,cond2)
 
 	data = frappe.db.sql(query,as_dict=True)
 	
