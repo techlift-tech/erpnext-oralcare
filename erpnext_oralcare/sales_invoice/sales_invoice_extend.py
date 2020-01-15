@@ -222,6 +222,24 @@ def get_doctor_commission(item_code, doctor, qty, amount):
 
     return share_value, admin_fees, consumable_cost
 
+@frappe.whitelist()
+def get_membership_card_from_customer(customer):
+    membership_allotment = frappe.get_list('Membership Allotment', filters={'primary_member': customer}, fields=['name', 'membership_card'])
+    card_name = ""
+    if membership_allotment and len(membership_allotment) == 1:
+        membership_card = membership_allotment[0].membership_card
+        membership_card_object = frappe.get_doc('Membership Card', membership_card)
+        card_name = membership_card_object.card_name
+    else:
+        secondary_member = frappe.get_all('Secondary Member', filters={'member': customer}, fields=['name', 'parent'])
+        if secondary_member and len(secondary_member) == 1:
+            membership_card_alotment = secondary_member[0].parent
+            membership_card_allotment_object = frappe.get_doc('Membership Allotment', membership_card_alotment)
+            membership_card = membership_card_allotment_object.membership_card
+            membership_card_object = frappe.get_doc('Membership Card', membership_card)
+            card_name = membership_card_object.card_name
+
+    return card_name
 
 @frappe.whitelist()
 def get_healthcare_services(patient):
