@@ -1,4 +1,5 @@
 // Healthcare
+/* global frappe, __, get_healthcare_items, set_primary_action */
 var get_healthcare_services_to_invoice = function(frm) {
     var me = this;
     let selected_patient = "";
@@ -12,8 +13,8 @@ var get_healthcare_services_to_invoice = function(frm) {
                 fieldname: "patient",
                 reqd: true
             },
-            { fieldtype: 'Section Break'	},
-            { fieldtype: 'HTML', fieldname: 'results_area' }
+            { fieldtype: "Section Break"	},
+            { fieldtype: "HTML", fieldname: "results_area" }
         ]
     });
     var $wrapper;
@@ -36,7 +37,7 @@ var get_healthcare_services_to_invoice = function(frm) {
             $results.empty();
             $results.append($placeholder);
         }
-    }
+    };
     $wrapper = dialog.fields_dict.results_area.$wrapper.append(`<div class="results"
         style="border: 1px solid #d1d8dd; border-radius: 3px; height: 300px; overflow: auto;"></div>`);
     $results = $wrapper.find(".results");
@@ -53,12 +54,6 @@ var get_healthcare_services_to_invoice = function(frm) {
     set_primary_action(frm, dialog, $results, true);
     dialog.show();
 };
-
-frappe.ui.form.on("Sales Invoice", {
-    customer: function(frm) {
-        get_membership_card_and_show(frm);
-    }
-});
 
 async function get_membership_card_and_show(frm){
     frm.doc.membership_card = "";
@@ -81,3 +76,11 @@ async function get_membership_card_and_show(frm){
         });
     }
 }
+
+frappe.ui.form.on("Sales Invoice", {
+    customer: function(frm) {
+        get_membership_card_and_show(frm);
+    }
+});
+
+
