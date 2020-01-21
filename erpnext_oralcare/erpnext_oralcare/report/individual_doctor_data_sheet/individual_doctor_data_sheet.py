@@ -3,93 +3,97 @@
 
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import flt
 
-billable_healtcare_doctypes = ['Patient Appointment', 'Patient Encounter', 'Lab Test', 'Clinical Procedure', 'Procedure Prescription', 'Lab Prescription']
 
 def execute(filters=None):
-	columns, data = [], []
+	data = prepare_data(filters)
+	columns = get_columns(filters)
+	return columns, data
 
-	if not filters:
-		filters = {}
-
-	from_date = filters.get("date_range")[0]
-	to_date = filters.get("date_range")[1]
-	doctor_filter = filters.get("doctor")
-
-	columns, data = [], []
-
-	sales_invoices = frappe.get_list('Sales Invoice', filters = [['posting_date', ">=", from_date], ['posting_date', "<=", to_date]])
-
-	columns = [
-		'Invoice:Link/Sales Invoice:90',
-		'Date:Date:80',
-		'Procedure Name',
-		'Doctor Name',
-		'Patient Name::150',
-		'Value to Dr:Currency',
-		'Value to Company:Currency:130',
-		'Value to Company(%)'
+def get_columns(filters=None):
+	return [
+		{
+			"label": "Name",
+			"fieldtype": "Link",
+			"fieldname": "name",
+			"width": 100,
+			"options": "Sales Invoice"
+		},
+		{
+			"label": "Date",
+			"fieldtype": "Data",
+			"fieldname": "posting_date",
+			"width": 180,
+			"options": ""
+		},
+		{
+			"label": "Procedure Name",
+			"fieldtype": "Data",
+			"fieldname": "item_name",
+			"width": 200,
+			"options": ""
+		},
+		{
+			"label": "Doctor Name",
+			"fieldtype": "Link",
+			"fieldname": "practitioner",
+			"width": 250,
+			"options": "Healthcare Practitioner"
+		},
+		{
+			"label": "Patient Name",
+			"fieldtype": "Link",
+			"fieldname": "patient_name",
+			"width": 150,
+			"options": "Customer"
+		},
+		{
+			"label": "Amt Collected",
+			"fieldtype": "Currency",
+			"fieldname": "amount",
+			"width": 100,
+			"options": ""
+		},
+		{
+			"label": "Value to Doctor",
+			"fieldtype": "Currency",
+			"fieldname": "doctor_share",
+			"width": 100,
+			"options": ""
+		},
+		{
+			"label": "Value to Company",
+			"fieldtype": "Currency",
+			"fieldname": "value_to_company",
+			"width": 100,
+			"options": ""
+		}
+		
+		
 	]
 
-	for si_name in sales_invoices:
-		si = frappe.get_doc('Sales Invoice', si_name)
+		
+def prepare_data(filters):
+	date_cond = practitioner_cond = ""
+	if filters.practitioner:
+		practitioner_cond = "and practitioner='{0}'".format(filters.get('practitioner'))
+	if filters.start_date and filters.end_date:
+		date_cond  = "where si.posting_date BETWEEN '{0}' AND '{1}'".format(filters.start_date, filters.end_date)	
+	query = """
+	select
+	si.name as "name",
+	DATE_FORMAT(si.posting_date,'%d-%m-%Y') as "posting_date",
+	si_item.item_name as "item_name",
+	si.customer_name as "patient_name",
+	case si_item.reference_dt when "Clinical Procedure" 
+	then (select practitioner from `tabClinical Procedure` where name = si_item.reference_dn)
+	when "Patient Appointment" 
+	then (select practitioner from `tabPatient Appointment` where name = si_item.reference_dn)
+	END as "practitioner",
+	ifnull(si_item.doctor_share,0) as "doctor_share",
+	si_item.amount as "amount",ifnull(si_item.amount-si_item.doctor_share,0) as "value_to_company" 
+	from `tabSales Invoice`as si inner JOIN `tabSales Invoice Item`as si_item on si.name=si_item.parent and si.docstatus=1 {0} having practitioner is not null {1};""".format(date_cond,practitioner_cond)
 
-		if (not si) or (si.docstatus != 1):
-			continue
-
-		posting_date = si.posting_date
-
-		si_items = si.items
-
-		for item in si_items:
-			reference_dt = item.reference_dt
-
-			if reference_dt not in billable_healtcare_doctypes:
-				continue
-
-			reference_dn = item.reference_dn
-			healthcare_procedure = frappe.get_doc(reference_dt, reference_dn)
-			amount = item.amount
-			rate = item.rate
-			qty = item.qty
-			doctor_share = item.doctor_share
-			company_share = amount
-
-			if reference_dt == 'Clinical Procedure' or reference_dt == 'Patient Encounter':
-
-				template = healthcare_procedure.procedure_template if (reference_dt == 'Clinical Procedure') else 'Patient Encounter'
-				practitioner = healthcare_procedure.practitioner
-				patient_id = healthcare_procedure.patient
-
-				if doctor_filter:
-					if practitioner != doctor_filter:
-						continue
-
-				if doctor_share:
-					company_share = flt(amount) - flt(doctor_share)
-					doctor_share = flt(doctor_share)
-				else:
-					doctor_share = 0
-
-				company_percent = (company_share/amount)*100
-
-				doctor_name = ''
-				doctor_name = ''
-				if practitioner:
-					doctor_name = practitioner
-					doctor = frappe.get_doc('Healthcare Practitioner', doctor_name)
-					if doctor.first_name:
-						doctor_name = doctor.first_name
-
-					if doctor.last_name:
-						doctor_name += " " + doctor.last_name
-
-				patient = frappe.get_doc('Patient', patient_id) 
-				patient_name = patient.patient_name
-
-				array_to_append = [si_name.name, posting_date, template, doctor_name, patient_name, doctor_share, company_share, company_percent]
-
-				data.append(array_to_append)
-
-	return columns, data
+	data = frappe.db.sql(query,as_dict=True)
+	
+	return data

@@ -98,7 +98,20 @@ def get_data():
 					"is_query_report": True,
 					"name": "General Ledger Oralcare",
 					"label": "General Ledger Oralcare"
+				},
+				{
+					"type": "report",
+					"name": "Individual Patient Data Sheet Old",
+					"is_query_report": True,
+					"label": _("Individual Patient Data Sheet Old")
+				},
+				{
+					"type": "report",
+					"name": "Patient Treatment Sheet Old",
+					"is_query_report": True,
+					"label": _("Patient Treatment Sheet Old")
 				}
+				
 
 			]
 		},

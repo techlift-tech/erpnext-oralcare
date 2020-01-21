@@ -5,16 +5,24 @@
 frappe.query_reports["Individual Doctor Data Sheet"] = {
 	"filters": [
 		{
-			"fieldname":"date_range",
-			"label": __("Date Range"),
-			"fieldtype": "DateRange",
-			"default": [frappe.datetime.add_months(frappe.datetime.get_today(),-1), frappe.datetime.get_today()],
-			"reqd": 1
-		},{
-			"fieldname":"doctor",
+			"fieldname":"practitioner",
 			"label": __("Doctor"),
 			"fieldtype":"Link",
-			"options":"Healthcare Practitioner"
+			"options":"Healthcare Practitioner",
+			"reqd":0
+		 },
+		{
+			fieldname:"start_date",
+			label: __("From Date"),
+			fieldtype: "Date",
+			width: "80"
+		},
+		{
+			fieldname:"end_date",
+			label: __("To Date"),
+			fieldtype: "Date",
+			width: "80"
 		}
+
 	]
 }

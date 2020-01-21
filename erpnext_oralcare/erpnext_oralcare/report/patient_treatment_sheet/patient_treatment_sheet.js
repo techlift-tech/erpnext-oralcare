@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-frappe.query_reports["Patient Treatment Sheet Custom"] = {
+frappe.query_reports["Patient Treatment Sheet"] = {
 	"filters": [
 		{
 			"fieldname":"practitioner",
