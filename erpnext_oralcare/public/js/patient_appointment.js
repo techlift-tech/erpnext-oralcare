@@ -1,4 +1,4 @@
-/*global frappe, __ */
+/*global moment, frappe, __ */
 
 frappe.ui.form.on("Patient Appointment", {
 	after_save: function(frm) {
@@ -18,7 +18,7 @@ frappe.ui.form.on("Patient Appointment", "patient", function(frm){
 			}
 		});
 	}
-})
+});
 
 var check_and_set_availability = function(frm) {
 	if(!frm.doc.patient) {
@@ -33,7 +33,7 @@ var check_and_set_availability = function(frm) {
 
 	function show_empty_state(practitioner, appointment_date) {
 		frappe.msgprint({
-			title: __('Not Available'),
+			title: __("Not Available"),
 			message: __("Healthcare Practitioner {0} not available on {1}", [practitioner.bold(), appointment_date.bold()]),
 			indicator: "red"
 		});
@@ -143,7 +143,7 @@ var check_and_set_availability = function(frm) {
 						for (let i = 0; i < slot_details.length; i++) {
 							slot_html = slot_html + `<label>${slot_details[i].slot_name}</label>`;
 							slot_html = slot_html + `<br/>` + slot_details[i].avail_slot.map(slot => {
-								let disabled = '';
+								let disabled = "";
 								let start_str = slot.from_time;
 								let slot_start_time = moment(slot.from_time, "HH:mm:ss");
 								let slot_to_time = moment(slot.to_time, "HH:mm:ss");
