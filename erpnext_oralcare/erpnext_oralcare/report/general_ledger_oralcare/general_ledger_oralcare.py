@@ -159,7 +159,7 @@ def get_gl_entries(filters):
                         voucher_no, cost_center, project,
 			against_voucher_type, against_voucher, account_currency,
 			remarks, against, is_opening {select_fields}
-		from `tabGL Entry` as gl_e
+		from `tabGL Entry`
 		where company=%(company)s {conditions} {group_by_statement}
 		{order_by_statement}
 		""".format(
